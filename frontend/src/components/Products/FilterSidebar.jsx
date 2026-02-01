@@ -79,7 +79,7 @@ const FilterSidebar = () => {
         
         category:params.category || "",
         gender:params.gender || "" ,
-        color:params.colors || "",
+        color:params.color || "",
         size:params.size? params.size.split(","): [],
         material:params.material? params.material.split(","): [],
         brand:params.brand? params.brand.split(","): [],
