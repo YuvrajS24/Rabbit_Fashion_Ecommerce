@@ -51,13 +51,13 @@ const userSchema = new mongoose.Schema(
 
 //Password Hash middleware 
 
-userSchema.pre("save", async function(next){
+userSchema.pre("save", async function(){
 
-    if(!this.isModified("password")) return next();
+    if(!this.isModified("password")) return;
 
     const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.pasword, salt);
-    next();
+    this.password = await bcrypt.hash(this.password, salt);
+    
 
 });
 
@@ -67,6 +67,17 @@ userSchema.pre("save", async function(next){
 //Match user entered password to Hashed password
 
 
+userSchema.methods.matchPassword = async function (enteredPassword) {
+
+ 
+    return await bcrypt.compare(enteredPassword, this.password);
+
+}
+
+
+module.exports = mongoose.model("User",userSchema);
+
+      
 
 
 
