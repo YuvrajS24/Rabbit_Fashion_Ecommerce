@@ -66,13 +66,12 @@ brand:{
 },
 
 
-sizes:{
-
-    type:String,
-    required:true,
+sizes: {
+  type: [String],
+  default: []
 },
 
-color:{
+colors:{
 
 type:[String],
 required:true,
