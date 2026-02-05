@@ -6,7 +6,7 @@ const cartItemSchema = new mongoose.Schema({
 
     productId:{
 
-        type:mongoose.Schema.Types.ObectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'Product',
         required:true,
 
@@ -34,7 +34,7 @@ const cartItemSchema = new mongoose.Schema({
 },{_id:false});
 
 
-const cartSchema = new Mongoose.Schema({
+const cartSchema = new mongoose.Schema({
 
     user:{
 
@@ -63,6 +63,6 @@ const cartSchema = new Mongoose.Schema({
 },{timestamps:true})
 
 
-module.exports = mongoose.model("Cart", cartItemSchema);
+module.exports = mongoose.model("Cart", cartSchema);
 
 

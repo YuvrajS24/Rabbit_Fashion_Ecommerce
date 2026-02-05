@@ -8,7 +8,7 @@ const router = express.Router();
 
 //@route POST /api/products
 //@desc Create a new Product
-//@access Private/Admin
+//@access Private / Admin
 
 
 router.post("/", protect , admin, async (req,res)=>{
@@ -16,9 +16,9 @@ router.post("/", protect , admin, async (req,res)=>{
 try {
 
     const {
-        name,
+         name,
          description,
-          price,
+         price,
            discountPrice,
             countInStock,
              category, 
@@ -114,7 +114,7 @@ router.put("/:id",protect,admin , async(req,res)=>{
 
     } = req.body;
 
-    console.log(req.body);
+    
 
     // Find product by ID
     const product = await Product.findById(req.params.id);
@@ -233,6 +233,7 @@ router.get("/", async(req,res)=>{
                 if(category && category.toLocaleLowerCase()  !== "all") {
 
                 query.category = category;
+
                 }
 
 
@@ -449,6 +450,7 @@ router.get("/similar/:id", async (req,res) => {
             _id: {$ne:id}, //Exclude the current product ID
             gender: product.gender,
             category:product.category,
+            
 
      }).limit(4);
 
