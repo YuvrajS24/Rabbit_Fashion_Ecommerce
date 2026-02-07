@@ -1,0 +1,15 @@
+const express = require('express');
+const User = require('../models/User')
+const {protect, admin} = require('../middleware/authMiddleware')
+
+
+const router = express.Router();
+
+//@route GET /api/admin/users
+//@desc Get all users
+//@access Private/Admin
+
+
+
+
+
