@@ -232,7 +232,7 @@ extraReducers:(builder) => {
 
         if(index !== -1){
 
-            state.products[index] = updatedProduct;
+            state.products[index] = updateProduct;
         }
      
     })

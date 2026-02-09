@@ -114,7 +114,8 @@ extraReducers:(builder) =>{
     .addCase(loginUser.fulfilled, (state, action)=>{
           
         state.loading = false;
-        state.error = action.payload;
+       state.user = action.payload;
+        state.error = null;
         
     })
     .addCase(loginUser.rejected, (state,action)=>{
@@ -134,7 +135,9 @@ extraReducers:(builder) =>{
     .addCase(registerUser.fulfilled, (state, action)=>{
           
         state.loading = false;
-        state.error = action.payload;
+        state.user = action.payload;
+        state.error = null;
+
     })
 
     .addCase(registerUser.rejected, (state,action)=>{
