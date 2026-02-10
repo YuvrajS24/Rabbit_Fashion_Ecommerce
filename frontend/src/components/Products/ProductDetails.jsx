@@ -1,68 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import {toast} from 'sonner'
 import ProductGrid from './ProductGrid';
-
-
-const selectedProduct =  {
- 
-    name:"Stylish Jacket",
-    price:120,
-    originalPrice : 150,
-    description:"This is a stylish jacket perfect for any occasion",
-    brand:"Fashion Brand",
-    material:"Leather",
-    sizes:["S","M","L","XL"],
-    colors:["Red","Black"],
-    images:[
-        {
-        url:"https://picsum.photos/500/500?radom=1",
-        altText:"Stylish Jacket 1",
-    },
-        {
-        url:"https://picsum.photos/500/500?radom=2",
-        altText:"Stylish Jacket 2",
-    },
-
-]
-
- }
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductDetails, fetchSimilarProducts } from '../../redux/slices/productSlice';
+import { addToCart } from '../../redux/slices/cartSlice';
 
 
 
- const similarProducts = [
-      
-    {
-        _id:1,
-        name:"Product 1",
-        price:100,
-        images:[{url : "https://picsum.photos/500/500?radom=1"}],
 
-    },
-    {
-        _id:2,
-        name:"Product 2",
-        price:100,
-        images:[{url : "https://picsum.photos/500/500?radom=2"}],
+const ProductDetails = ({productId}) => {
 
-    },
-    {
-        _id:3,
-        name:"Product 3",
-        price:100,
-        images:[{url : "https://picsum.photos/500/500?radom=3"}],
 
-    },
-    {
-        _id:4,
-        name:"Product 4",
-        price:100,
-        images:[{url : "https://picsum.photos/500/500?radom=4"}],
-
-    },
-
-];
-
-const ProductDetails = () => {
+    const {id} = useParams();
+    const dispatch = useDispatch();
+    const {selectedProduct, loading, error, similarProducts} = useSelector((state)=> state.products)
+    const {user, guestId} = useSelector((state)=> state.auth)
 
     const [mainImage, setMainImage] =useState(null);
     const[selectedSize, setSelectedSize] = useState("");
@@ -70,6 +23,17 @@ const ProductDetails = () => {
     const[quantity,setQuantity] = useState(1);
     const[isButtonDisabled, setisButtonDisabled] =useState(false);
  
+
+    const productFetchId = productId || id;
+
+    useEffect(()=>{
+
+        if(productFetchId){
+
+            dispatch(fetchProductDetails(productFetchId));
+            dispatch(fetchSimilarProducts({ id: productFetchId }))
+        }
+    }, [dispatch, productFetchId])
 
     useEffect(() => {
         
@@ -103,22 +67,54 @@ const ProductDetails = () => {
 
     setisButtonDisabled(true);
 
-    setTimeout(()=>{
+     dispatch(
 
-        toast.success('Product added to cart!', {
+        addToCart({
+
+            productId:productFetchId,
+            quantity,
+            size:selectedSize,
+            color:selectedColor,
+            guestId,
+            userId: user?._id,
+
+        })
+     )
+        
+     .then(()=> {
+
+        toast.success("Product added to cart!", {
+
             duration:1000,
         })
-
+     })
+  
+     .finally(()=> {
+            
         setisButtonDisabled(false);
 
-    },1000)
+     })
+  }
+
+
+  if(loading){
+     
+    return <p>Loading...</p>
+
+  }
+
+  if(error){
+        
+    return <p>Error:{error}</p>
 
   }
 
   return (
     <div className='p-6'>
 
-       <div className='max-w-6xl mx-auto bg-white p-8 rounded-lg'>
+    {selectedProduct && (
+
+          <div className='max-w-6xl mx-auto bg-white p-8 rounded-lg'>
 
           <div className='flex flex-col md:flex-row'>
                
@@ -313,11 +309,17 @@ const ProductDetails = () => {
 
                </h2>
 
-               <ProductGrid products={similarProducts}/>
+               <ProductGrid products={similarProducts} loading={loading} error={error}/>
 
           </div>
 
        </div>
+
+
+
+    )}
+
+     
    
     </div>
   )

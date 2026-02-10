@@ -12,46 +12,56 @@ const router = express.Router();
 //@route POST /api/checkout
 //@desc Create a new checkout session
 //@access Private
-router.post("/", protect , async (req,res)=>{
+router.post("/", protect, async (req, res) => {
 
-    const {checkoutItems,shippingAddress, paymentMethod, totalPrice} = req.body;
+  const { checkoutItems, shippingAddress, paymentMethod, totalPrice } = req.body;
 
-    if(!checkoutItems || checkoutItems.length === 0){
+  
 
-        return res.status(404).json({message: "no items in checkout"});
-   
-    }
+  //  Cart items check
+  if (!checkoutItems || checkoutItems.length === 0) {
+    return res.status(400).json({ message: "No items in checkout" });
+  }
 
+  //  Payment method check
+  if (!paymentMethod) {
+    return res.status(400).json({ message: "paymentMethod is required" });
+  }
 
-    try{
-        //Create a new checkout session
+  // ✅Shipping address check
+  if (
+    !shippingAddress ||
+    !shippingAddress.address ||
+    !shippingAddress.city ||
+    !shippingAddress.postalCode ||
+    !shippingAddress.country
+  ) {
+    return res.status(400).json({
+      message: "Complete shipping address required",
+    });
+  }
 
-        const newCheckout = await Checkout.create({
+  // ONLY AFTER ALL CHECKS
+  try {
+    const newCheckout = await Checkout.create({
+      user: req.user._id,
+      checkoutItems,
+      shippingAddress,
+      paymentMethod,
+      totalPrice,
+      paymentStatus: "Pending",
+      isPaid: false,
+    });
 
-        user:req.user._id,
-        checkoutItems: checkoutItems,
-        shippingAddress,
-        paymentMethod,
-        totalPrice,
-        paymentStatus:"Pending",
-        isPaid:false,
+    console.log(`Checkout created for user: ${req.user._id}`);
+    res.status(201).json(newCheckout);
 
+  } catch (error) {
+    console.error("Checkout Error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
-console.log(`Checkout created for user: ${req.user._id}`)
-
-res.status(201).json(newCheckout);
-
-
-
-    }catch{
-
-        console.error('Error creating checkout session:', error);
-
-        res.status(500).json({message: "Server Error"});
-    }
-
-})
 
 
 //@route PUT /api/checkout/:id/pay
@@ -70,7 +80,7 @@ router.put("/:id/pay", protect , async(req,res)=>{
 
         if(!checkout){
 
-            res.status(404).json({message:"Checkout not found"});
+           return res.status(404).json({ message: "Checkout not found" });
 
         }
 
@@ -178,7 +188,7 @@ router.post("/:id/finalize", protect , async(req,res) => {
 
         console.error(error);
 
-        res.status(501).json({message:"Server Error"});
+        res.status(500).json({message:"Server Error"});
         
     }
 

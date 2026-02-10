@@ -3,7 +3,7 @@ import axios from "axios"
 
 
 //Async Thunk to create a checkout 
-export const createAsyncThunk = createAsyncThunk("checkout/createCheckout", async (checkoutData, {rejectWithValue})=> {
+export const createCheckout = createAsyncThunk("checkout/createCheckout", async (checkoutData, {rejectWithValue})=> {
 
 try {
 
@@ -44,20 +44,20 @@ reducers:{},
 
 extraReducers: (builder) => {
 
-    builder.addCase(createAsyncThunk.pending, (state)=>{
+    builder.addCase(createCheckout.pending, (state)=>{
         
         state.loading = true;
         state.error = null;
     })
 
-    builder.addCase(createAsyncThunk.fulfilled, (state, action)=>{
+    builder.addCase(createCheckout.fulfilled, (state, action)=>{
         
         state.loading = false;
         state.checkout = action.payload;
 
     })
 
-    builder.addCase(createAsyncThunk.rejected, (state, action)=>{
+    builder.addCase(createCheckout.rejected, (state, action)=>{
         
         state.loading = false;
         state.error = action.payload.message;

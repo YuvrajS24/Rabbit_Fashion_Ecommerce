@@ -22,7 +22,31 @@ const NewArrivals = () => {
 
 
     
+ const [newArrivals, setNewArrivals] =useState([])
 
+
+ useEffect(()=>{
+
+    const fetchNewArrivals = async () => {
+      
+        try {
+
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/new-arrivals`);
+
+
+            setNewArrivals(response.data);
+            
+        } catch (error) {
+
+            console.error(error);
+            
+        }
+
+    }
+
+    fetchNewArrivals();
+
+ }, [])
 
 
 const handleMouseDown = (e) =>{
@@ -90,7 +114,7 @@ useEffect(()=>{
 
     }
 
-},[])
+},[newArrivals])
 
 
   return (

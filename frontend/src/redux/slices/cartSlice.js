@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios"
 
 
@@ -8,7 +8,7 @@ const loadCartFromStorage = () =>{
 
 const storedCart = localStorage.getItem("cart");
 
-return storedCart? JSON.parse(stored): {products : []}
+return storedCart? JSON.parse(storedCart): {products : []}
 
 };
 
@@ -183,11 +183,13 @@ const cartSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchCart.fulfilled, (state, action) => {
-        state.loading = true;
-        state.error = action.payload;
-        saveCartToStorage(action.payload);
-      })
+     .addCase(fetchCart.fulfilled, (state, action) => {
+  state.loading = false;
+  state.cart = action.payload;    
+  state.error = null;
+  saveCartToStorage(action.payload);
+})
+
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch cart";
@@ -196,30 +198,32 @@ const cartSlice = createSlice({
 
 
 
-      .addCase(addToCart.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(addToCart.fulfilled, (state, action) => {
-        state.loading = true;
-        state.error = action.payload;
-        saveCartToStorage(action.payload);
-      })
-      .addCase(addToCart.rejected, (state, action) => {
-        state.loading = falseaddToCart;
-        state.error = action.payload?.message || "Failed to add to cart";
-      })
+  .addCase(addToCart.pending, (state) => {
+  state.loading = true;
+  state.error = null;
+})
+.addCase(addToCart.fulfilled, (state, action) => {
+  state.loading = false;
+  state.cart = action.payload;
+  state.error = null;
+  saveCartToStorage(action.payload);
+})
+.addCase(addToCart.rejected, (state, action) => {
+  state.loading = false;
+  state.error = action.payload?.message || "Failed to add to cart";
+})
 
 
       .addCase(updateCartItemQuantity.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
-        state.loading = true;
-        state.error = action.payload;
-        saveCartToStorage(action.payload);
-      })
+     .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
+  state.loading = false;
+  state.cart = action.payload;    // ✅
+  state.error = null;
+  saveCartToStorage(action.payload);
+})
       .addCase(updateCartItemQuantity.rejected, (state, action) => {
         state.loading = false;
         state.error =
@@ -232,11 +236,12 @@ const cartSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.loading = true;
-        state.error = action.payload;
-        saveCartToStorage(action.payload);
-      })
+    .addCase(removeFromCart.fulfilled, (state, action) => {
+  state.loading = false;
+  state.cart = action.payload;    
+  state.error = null;
+  saveCartToStorage(action.payload);
+})
       .addCase(removeFromCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Failed to remove item";
@@ -248,10 +253,11 @@ const cartSlice = createSlice({
         state.error = null;
       })
       .addCase(mergeCart.fulfilled, (state, action) => {
-        state.loading = true;
-        state.error = action.payload;
-        saveCartToStorage(action.payload);
-      })
+  state.loading = false;
+  state.cart = action.payload;    // ✅
+  state.error = null;
+  saveCartToStorage(action.payload);
+})
       .addCase(mergeCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || "Failed to merge cart";

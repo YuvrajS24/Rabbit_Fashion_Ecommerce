@@ -19,7 +19,7 @@ const OrderDetailsPage = () => {
             isDelivered:false,
             paymentMethod: "Paypal" ,
             shippingMethod : "Standard",
-            shippingAddress: {city:"New York", country:"USA" },
+            shippingAddress: { address: "221B Baker Street", city: "New York",  postalCode: "10001", country: "USA"},
             orderItems : [
                 {
                     productId:"1",

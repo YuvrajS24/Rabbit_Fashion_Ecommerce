@@ -137,7 +137,7 @@ const adminProductSlice = createSlice({
 
                (product) => product._id === action.payload._id
 
-            );
+            )
 
 
             if(index !== -1 ){
@@ -160,10 +160,10 @@ const adminProductSlice = createSlice({
                 (product)=> product._id !== action.payload
 
 
-            );
+            )
           });
 
-    };
+    }
 
 
 });

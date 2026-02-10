@@ -1,15 +1,55 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import register from '../assets/register.webp'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { registerUser } from '../redux/slices/authSlice'
-import { useDispatch } from 'react-redux'
+import { mergeCart } from '../redux/slices/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
+
 
 const Register = () => {
 
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
-    const dispatch = useDispatch();
+
+
+        const dispatch = useDispatch();
+
+     const navigate = useNavigate();
+      const location = useLocation();
+
+      const {user, guestId} = useSelector((state) => state.auth);
+
+      const { cart } = useSelector((state) => state.cart);
+
+
+      //Get redirect parameter and check if it's checkout or something 
+       const redirect = new URLSearchParams(location.search).get("redirect") || "/";
+
+       const isCheckoutRedirect = redirect.includes("checkout");
+
+
+       useEffect(()=>{
+           
+         if(user) {
+              
+            if(cart?.products.length > 0 && guestId) {
+                  
+              dispatch(mergeCart({guestId, user})).then(()=> {
+
+                navigate(isCheckoutRedirect? "/checkout": "/");
+              })
+
+            }else{
+
+              navigate(isCheckoutRedirect ? "/checkout" : "/")
+            }
+
+         }
+
+       },[user, guestId, cart?.products?.length, isCheckoutRedirect])
+
 
 
     const handleSubmit = (e) =>{
@@ -80,7 +120,7 @@ const Register = () => {
             </button>
 
             <p className='mt-6 text-center text-sm'> Already have an Account? {""}
-             <Link to="/login" className="text-blue-500">Login</Link>
+             <Link to={`/login?redirect=${encodeURIComponent(redirect)}`} className="text-blue-500">Login</Link>
             </p>
 
          </form>
