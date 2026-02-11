@@ -19,7 +19,7 @@ const Register = () => {
      const navigate = useNavigate();
       const location = useLocation();
 
-      const {user, guestId} = useSelector((state) => state.auth);
+      const {user, guestId, loading} = useSelector((state) => state.auth);
 
       const { cart } = useSelector((state) => state.cart);
 
@@ -115,7 +115,7 @@ const Register = () => {
             <button type="submit" className='w-full bg-black text-white p-2 rounded-lg
             font-semibold hover hover:gray-800 transition'>
 
-            Sign up
+             {loading? "loading..." : "Sign up"}
 
             </button>
 

@@ -43,7 +43,7 @@ export const updateOrderStatus = createAsyncThunk("adminOrders/updateOrderStatus
 try{
 
 
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,{status}, {
+    const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/admin/orders/${id}`,{status}, {
 
       headers:{
 

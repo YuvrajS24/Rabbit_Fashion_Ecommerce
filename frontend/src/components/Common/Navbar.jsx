@@ -15,6 +15,8 @@ const [navDrawerOpen , setNavDrawerOpen] =useState(false);
 
 const cart = useSelector((state) => state.cart.cart);
 
+const {user} = useSelector((state) => state.auth)
+
 const cartItemCount = cart?.products?.reduce((total, product) => total + product.quantity, 0 ) || 0;
 
 
@@ -61,9 +63,12 @@ const toggleCartDrawer = () =>{
 
      <div className='flex items-center space-x-4 '>
 
-      <Link to="/admin" className='block bg-black px-2 rounded text-sm text-white '>
+      {user && user.role === 'admin' && ( 
+        <Link to="/admin" className='block bg-black px-2 rounded text-sm text-white '>
       Admin
-      </Link>
+      </Link> )}
+
+     
 
         <Link to="/profile" className='hover:text-black'>
           

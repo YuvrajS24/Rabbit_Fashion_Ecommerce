@@ -64,21 +64,17 @@ export const fetchProductDetails =  createAsyncThunk("products/fetchProductDetai
 
 export const updateProduct = createAsyncThunk("products/updateProduct", async({id, productData})=>{
 
-const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, productData, 
+const token = localStorage.getItem("userToken");
 
+const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, productData, 
     {
          headers:{
-
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`
-
+            Authorization: `Bearer ${token}`
          }
-
     }
-
 );
 
 return response.data;
-
 } )
 
 

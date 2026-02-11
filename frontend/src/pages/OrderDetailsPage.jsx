@@ -1,51 +1,35 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
+import { fetchOrderDetails } from '../redux/slices/orderSlice';
 
 const OrderDetailsPage = () => {
 
        const {id} = useParams();
 
-       const [orderDetails, setOrderDetails] = useState(null);
+
+       const dispatch = useDispatch();
+
+
+       const {orderDetails, loading, error} = useSelector((state)=>state.orders);
 
 
        useEffect(()=>{
-            
-        const mockOrderDetails = {
-                
-            _id:id,
-            createdAt:new Date(),
-            isPaid:true,
-            isDelivered:false,
-            paymentMethod: "Paypal" ,
-            shippingMethod : "Standard",
-            shippingAddress: { address: "221B Baker Street", city: "New York",  postalCode: "10001", country: "USA"},
-            orderItems : [
-                {
-                    productId:"1",
-                    name:"Jacket",
-                    price:120,
-                    quantity:1,
-                    image:"https://picsum.photos/150?random=1"
-                },
-
-                {
-                    productId:"2",
-                    name:"Shirt",
-                    price:150,
-                    quantity:1,
-                    image:"https://picsum.photos/150?random=2"
-                },
+               
+        dispatch(fetchOrderDetails(id));
+         
+       }, [dispatch, id])
 
 
-            ]
 
-        };
+       if(loading) return <p>Loading...</p>
+       if(error) return <p>Error: {error}</p>
 
-        setOrderDetails(mockOrderDetails);
+     
 
 
-       }, [id]);
+ 
 
 
    
@@ -172,7 +156,7 @@ return (
 
 
                         <td className="py-2 px-4 ">${item.price}</td>
-                        <td className="py-2 px-4 ">${item.quantity}</td>
+                        <td className="py-2 px-4 ">{item.quantity}</td>
                         <td className="py-2 px-4 ">${item.price * item.quantity}</td>
                     </tr>
 

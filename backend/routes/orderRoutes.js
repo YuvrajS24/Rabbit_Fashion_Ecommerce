@@ -12,32 +12,22 @@ const router = express.Router()
 //@access Private
 
 
-router.get('/my-orders', protect, async (req,res) => {
+router.get('/my-orders', protect, async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
 
+    const orders = await Order.find({ user: req.user._id }).sort({
+      createdAt: -1,
+    });
 
-    try{
-
-       //Find orders for the authenticated user
-
-       const orders = await Order.find({user: req.user._id}).sort({
-
-        createdAt:-1,
-
-       }); //sort by most recent orders 
-
-
-       res.json(orders);
-
-    }catch{
-
-     console.error(error);
-
-     res.status(500).json({message :"Server Error"})
-
-   }
-
-})
-
+    res.json(orders);
+  } catch (error) {
+    console.error("MY ORDERS ERROR:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
 
 // @route  GET /api/orders/:id
 // @desc   vGet order details by ID

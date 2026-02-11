@@ -8,7 +8,7 @@ export const fetchUserOrders = createAsyncThunk("orders/fetchUserOrders", async(
 
 try {
 
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL/api/orders/my-orders}`,{
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/orders/my-orders`,{
 
       headers:{
 
@@ -46,7 +46,7 @@ export const fetchOrderDetails =  createAsyncThunk("orders/fetchOrderDetails", a
         
     } catch (error) {
 
-        rejectWithValue(error.response.data);
+      return  rejectWithValue(error.response.data);
         
     }
 } );
@@ -83,10 +83,11 @@ extraReducers: (builder) =>{
         state.orders = action.payload;
 
     })
-     .addCase(fetchUserOrders.rejected, (state)=>{
+     .addCase(fetchUserOrders.rejected, (state,action)=>{
        
         state.loading = false;
-        state.error =  action.payload.message;
+         state.error = action.payload?.message || "Failed to fetch orders";
+
     })
 
 
@@ -104,10 +105,10 @@ extraReducers: (builder) =>{
         state.orderDetails = action.payload;
 
     })
-     .addCase(fetchOrderDetails.rejected, (state)=>{
+     .addCase(fetchOrderDetails.rejected, (state,action)=>{
        
         state.loading = false;
-        state.error =  action.payload.message;
+        state.error = action.payload?.message || "Failed to fetch order details";
     })
 
 
