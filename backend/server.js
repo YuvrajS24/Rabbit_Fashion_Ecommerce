@@ -61,9 +61,7 @@ res.send('WELCOME TO RABBIT API!');
 });
 
 
-app.listen(PORT , ()=> {
+module.exports = app;
 
-     console.log(`Server is running on http://localhost:${PORT}`);
 
-});
 
