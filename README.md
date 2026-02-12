@@ -2,7 +2,8 @@
 
 A full-stack e-commerce application built with the MERN stack, featuring a beautiful UI, comprehensive admin dashboard, and seamless shopping experience.
 
-![Project Banner](./screenshots/banner.png)
+<img width="1893" height="869" alt="Screenshot 2026-02-12 155451" src="https://github.com/user-attachments/assets/aec18367-853b-4b08-b107-44e150a6e834" />
+
 
 ## 🌟 Live Demo
 
@@ -381,15 +382,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👤 Author
-
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [@yourlinkedin](https://linkedin.com/in/yourlinkedin)
-- Email: your.email@example.com
-
----
-
 ## 🙏 Acknowledgments
 
 - Thanks to all contributors
@@ -433,6 +425,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### ⭐ Star this repo if you found it helpful!
 
-Made with 💜 by **Your Name**
+Made with 💜 by **Yuvraj Sachdev**
 
 </div>
