@@ -16,6 +16,11 @@ const ProductGrid = ({products, loading , error}) => {
 
   }
 
+  if (!products || !Array.isArray(products) || products.length === 0) {
+    return <p>No products found.</p>
+  }
+
+
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
 
