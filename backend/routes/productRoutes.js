@@ -210,132 +210,133 @@ router.delete("/:id", protect , admin , async(req,res)=>{
 //@access Public
 
 
+router.get("/", async(req,res)=>{
 
 
-router.get("/", async (req, res) => {
-  try {
-    const {
-      collections,
-      size,
-      colors,
-      gender,
-      minPrice,
-      maxPrice,
-      sortBy,
-      search,
-      category,
-      material,
-      brand,
-      limit,
-    } = req.query;
+    try {
+        
+        const {collections, size, colors, gender, minPrice, maxPrice, sortBy,
+            search, category, material, brand, limit} = req.query;
 
-    let query = {};
 
-    // Collections
-    if (
-      collections &&
-      typeof collections === "string" &&
-      collections.toLowerCase() !== "all"
-    ) {
-      query.collections = collections;
+             let query = { };
+
+
+            //Filter logic 
+
+            if(collections && collections.toLocaleLowerCase()  !== "all") {
+
+                query.collections = collections;
+             }
+
+
+                if(category && category.toLocaleLowerCase()  !== "all") {
+
+                query.category = category;
+
+                }
+
+
+                if(material){
+                          
+                    query.material = {$in: material.split(",")}
+
+                }
+
+                if(brand){
+                          
+                    query.brand = {$in: brand.split(",")}
+
+                }
+
+                if(size){
+                          
+                    query.sizes = {$in: size.split(",")}
+
+                }
+
+
+                if(colors){
+
+                    query.colors = { $in: colors.split(",") };
+
+                }
+
+
+                if(gender){
+                       
+                    query.gender = gender;
+
+                }
+
+
+                if(minPrice || maxPrice ) {
+                     
+                     query.price={};
+
+                      if(minPrice) query.price.$gte = Number(minPrice);
+                      if(maxPrice) query.price.$lte = Number(maxPrice);
+
+                }
+
+
+                if(search) {
+                     
+                    query.$or = [
+                         {name:{ $regex: search, $options: "i"} },
+                         {description:{ $regex: search, $options: "i"} },
+                   
+                        ];
+                     }
+
+
+          //Sort Logic
+
+          let sort ={};
+
+
+    if(sortBy){
+
+        switch(sortBy) {
+               
+             case "priceAsc":
+                sort= {price:1};
+                break;
+              
+            case "priceDesc":
+                 sort = {price: -1};
+                 break;
+
+            case "popularity":
+                sort ={rating:-1};
+                break;
+                  
+            default:
+                break;
+
+     }
     }
 
-    // Category
-    if (
-      category &&
-      typeof category === "string" &&
-      category.toLowerCase() !== "all"
-    ) {
-      query.category = category;
-    }
 
-    // Material
-    if (material && typeof material === "string") {
-      query.material = { $in: material.split(",") };
-    }
+//Fetch products and apply sorting and limit
 
-    // Brand
-    if (brand && typeof brand === "string") {
-      query.brand = { $in: brand.split(",") };
-    }
+let products = await Product.find(query)
+               .sort(sort)
+               .limit(Number(limit) || 0);
 
-    // Size
-    if (size && typeof size === "string") {
-      query.sizes = { $in: size.split(",") };
-    }
 
-    // Colors
-    if (colors && typeof colors === "string") {
-      query.colors = { $in: colors.split(",") };
-    }
+res.json(products);
+        
+    } catch (error) {
 
-    // Gender
-    if (gender && typeof gender === "string") {
-      query.gender = gender;
-    }
+        console.log(error);
 
-    //
-    if (minPrice !== undefined || maxPrice !== undefined) {
-      const parsedMin = Number(minPrice);
-      const parsedMax = Number(maxPrice);
+        res.status(500).send("server error");
 
-      const priceFilter = {};
+     }
 
-      if (!isNaN(parsedMin)) {
-        priceFilter.$gte = parsedMin;
-      }
 
-      if (!isNaN(parsedMax)) {
-        priceFilter.$lte = parsedMax;
-      }
-
-      if (Object.keys(priceFilter).length > 0) {
-        query.price = priceFilter;
-      }
-    }
-
-    // Search
-    if (search && typeof search === "string") {
-      query.$or = [
-        { name: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
-      ];
-    }
-
-    // Sort Logic
-    let sort = {};
-
-    if (sortBy) {
-      switch (sortBy) {
-        case "priceAsc":
-          sort = { price: 1 };
-          break;
-
-        case "priceDesc":
-          sort = { price: -1 };
-          break;
-
-        case "popularity":
-          sort = { rating: -1 };
-          break;
-
-        default:
-          break;
-      }
-    }
-
-    // Fetch products
-    const products = await Product.find(query)
-      .sort(sort)
-      .limit(Number(limit) || 0);
-
-    res.json(products);
-  } catch (error) {
-    console.error("PRODUCT FILTER ERROR:", error);
-    res.status(500).send("Server Error");
-  }
-});
-
+})
 
 //@route GET /api/products/best-seller
 //@desc Retrieve the product with highest rating 
