@@ -14,7 +14,7 @@ A full-stack e-commerce application built with the MERN stack, featuring a beaut
 ## 📸 Screenshots
 
 ### 🏠 Homepage
-![Homepage]<img width="1893" height="869" alt="Screenshot 2026-02-12 155451" src="https://github.com/user-attachments/assets/92884a80-1a8a-4831-81c7-32993346ac8f" />
+<img width="1893" height="869" alt="Screenshot 2026-02-12 155451" src="https://github.com/user-attachments/assets/92884a80-1a8a-4831-81c7-32993346ac8f" />
 
 *Beautiful landing page with featured products and collections*
 
@@ -27,7 +27,8 @@ A full-stack e-commerce application built with the MERN stack, featuring a beaut
 *Detailed product view with image gallery and variant selection*
 
 ### 🛒 Shopping Cart
-![Shopping Cart](./screenshots/cart.png)
+<img width="599" height="856" alt="Screenshot 2026-02-12 160330" src="https://github.com/user-attachments/assets/2da2aa31-4f68-4fbf-9c06-9cd0f1bcab1a" />
+
 *Seamless cart experience with quantity management*
 
 ### 💳 Checkout
@@ -39,27 +40,36 @@ A full-stack e-commerce application built with the MERN stack, featuring a beaut
 *User profile and order management*
 
 ### 📋 Order History
-![Orders](./screenshots/orders.png)
+<img width="1890" height="873" alt="Screenshot 2026-02-12 160205" src="https://github.com/user-attachments/assets/00bf937c-6940-4f24-ae42-1dc066774503" />
+
 *Track all your orders in one place*
 
 ### 🔐 Authentication
-![Login](./screenshots/login.png)
+<img width="1894" height="867" alt="Screenshot 2026-02-12 155740" src="https://github.com/user-attachments/assets/03354bf2-2f22-494d-a8fe-bf72ced24dd3" />
+
+<img width="1888" height="865" alt="Screenshot 2026-02-12 155624" src="https://github.com/user-attachments/assets/1c2580ee-87d1-43b7-8692-7f5fc7dbfa26" />
+
+
 *Secure login and registration*
 
 ### ⚙️ Admin Dashboard
-![Admin Dashboard](./screenshots/admin-dashboard.png)
+<img width="1918" height="866" alt="Screenshot 2026-02-12 155811" src="https://github.com/user-attachments/assets/d32b4494-f5f2-423d-b339-9650e47f1f86" />
+
 *Comprehensive admin panel for managing the store*
 
 ### 📊 Product Management
-![Product Management](./screenshots/admin-products.png)
+<img width="1886" height="865" alt="Screenshot 2026-02-12 155844" src="https://github.com/user-attachments/assets/df85db14-7c6f-45f4-a829-1bcca805a445" />
+
 *Full CRUD operations for products*
 
 ### 👥 User Management
-![User Management](./screenshots/admin-users.png)
+<img width="1892" height="861" alt="Screenshot 2026-02-12 155828" src="https://github.com/user-attachments/assets/b264f863-3869-4be7-839b-2b5a55f35f58" />
+
 *Manage users and permissions*
 
 ### 📦 Order Management
-![Order Management](./screenshots/admin-orders.png)
+<img width="1915" height="863" alt="Screenshot 2026-02-12 155858" src="https://github.com/user-attachments/assets/e579426d-3a8d-4b83-b947-0cfe432677e7" />
+
 *Track and manage all orders*
 
 ---
