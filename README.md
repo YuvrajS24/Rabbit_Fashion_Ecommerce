@@ -76,6 +76,13 @@ A full-stack e-commerce application built with the MERN stack, featuring a beaut
 *Track and manage all orders*
 
 ---
+### Paypal Integration
+<img width="719" height="1018" alt="Screenshot 2026-02-12 161927" src="https://github.com/user-attachments/assets/faf0f421-84d5-4ed9-9372-a2b02a209357" />
+
+
+*Handling Payments with Paypal*
+
+---
 
 ## ✨ Features
 
