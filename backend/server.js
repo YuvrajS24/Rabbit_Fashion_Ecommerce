@@ -63,5 +63,3 @@ res.send('WELCOME TO RABBIT API!');
 
 module.exports = app;
 
-
-

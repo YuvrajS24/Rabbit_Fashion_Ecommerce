@@ -210,133 +210,132 @@ router.delete("/:id", protect , admin , async(req,res)=>{
 //@access Public
 
 
-router.get("/", async(req,res)=>{
 
 
-    try {
-        
-        const {collections, size, colors, gender, minPrice, maxPrice, sortBy,
-            search, category, material, brand, limit} = req.query;
+router.get("/", async (req, res) => {
+  try {
+    const {
+      collections,
+      size,
+      colors,
+      gender,
+      minPrice,
+      maxPrice,
+      sortBy,
+      search,
+      category,
+      material,
+      brand,
+      limit,
+    } = req.query;
 
+    let query = {};
 
-             let query = { };
-
-
-            //Filter logic 
-
-            if(collections && collections.toLocaleLowerCase()  !== "all") {
-
-                query.collections = collections;
-             }
-
-
-                if(category && category.toLocaleLowerCase()  !== "all") {
-
-                query.category = category;
-
-                }
-
-
-                if(material){
-                          
-                    query.material = {$in: material.split(",")}
-
-                }
-
-                if(brand){
-                          
-                    query.brand = {$in: brand.split(",")}
-
-                }
-
-                if(size){
-                          
-                    query.sizes = {$in: size.split(",")}
-
-                }
-
-
-                if(colors){
-
-                    query.colors = { $in: colors.split(",") };
-
-                }
-
-
-                if(gender){
-                       
-                    query.gender = gender;
-
-                }
-
-
-                if(minPrice || maxPrice ) {
-                     
-                     query.price={};
-
-                      if(minPrice) query.price.$gte = Number(minPrice);
-                      if(maxPrice) query.price.$lte = Number(maxPrice);
-
-                }
-
-
-                if(search) {
-                     
-                    query.$or = [
-                         {name:{ $regex: search, $options: "i"} },
-                         {description:{ $regex: search, $options: "i"} },
-                   
-                        ];
-                     }
-
-
-          //Sort Logic
-
-          let sort ={};
-
-
-    if(sortBy){
-
-        switch(sortBy) {
-               
-             case "priceAsc":
-                sort= {price:1};
-                break;
-              
-            case "priceDesc":
-                 sort = {price: -1};
-                 break;
-
-            case "popularity":
-                sort ={rating:-1};
-                break;
-                  
-            default:
-                break;
-
-     }
+    // Collections
+    if (
+      collections &&
+      typeof collections === "string" &&
+      collections.toLowerCase() !== "all"
+    ) {
+      query.collections = collections;
     }
 
+    // Category
+    if (
+      category &&
+      typeof category === "string" &&
+      category.toLowerCase() !== "all"
+    ) {
+      query.category = category;
+    }
 
-//Fetch products and apply sorting and limit
+    // Material
+    if (material && typeof material === "string") {
+      query.material = { $in: material.split(",") };
+    }
 
-let products = await Product.find(query)
-               .sort(sort)
-               .limit(Number(limit) || 0);
+    // Brand
+    if (brand && typeof brand === "string") {
+      query.brand = { $in: brand.split(",") };
+    }
 
+    // Size
+    if (size && typeof size === "string") {
+      query.sizes = { $in: size.split(",") };
+    }
 
-res.json(products);
-        
-    } catch (error) {
+    // Colors
+    if (colors && typeof colors === "string") {
+      query.colors = { $in: colors.split(",") };
+    }
 
-        console.log(error);
+    // Gender
+    if (gender && typeof gender === "string") {
+      query.gender = gender;
+    }
 
-        res.status(500).send("server error");
+    //
+    if (minPrice !== undefined || maxPrice !== undefined) {
+      const parsedMin = Number(minPrice);
+      const parsedMax = Number(maxPrice);
 
-     }
+      const priceFilter = {};
 
+      if (!isNaN(parsedMin)) {
+        priceFilter.$gte = parsedMin;
+      }
 
-})
+      if (!isNaN(parsedMax)) {
+        priceFilter.$lte = parsedMax;
+      }
+
+      if (Object.keys(priceFilter).length > 0) {
+        query.price = priceFilter;
+      }
+    }
+
+    // Search
+    if (search && typeof search === "string") {
+      query.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    // Sort Logic
+    let sort = {};
+
+    if (sortBy) {
+      switch (sortBy) {
+        case "priceAsc":
+          sort = { price: 1 };
+          break;
+
+        case "priceDesc":
+          sort = { price: -1 };
+          break;
+
+        case "popularity":
+          sort = { rating: -1 };
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    // Fetch products
+    const products = await Product.find(query)
+      .sort(sort)
+      .limit(Number(limit) || 0);
+
+    res.json(products);
+  } catch (error) {
+    console.error("PRODUCT FILTER ERROR:", error);
+    res.status(500).send("Server Error");
+  }
+});
+
 
 //@route GET /api/products/best-seller
 //@desc Retrieve the product with highest rating 
