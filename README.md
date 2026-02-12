@@ -19,25 +19,25 @@ A full-stack e-commerce application built with the MERN stack, featuring a beaut
 *Beautiful landing page with featured products and collections*
 
 ### 🛍️ Product Collection
-![Product Collection](./screenshots/collection.png)
+<img width="1882" height="870" alt="Screenshot 2026-02-12 155551" src="https://github.com/user-attachments/assets/4de0b941-e4cc-430f-9c2c-9fe98b9a73d0" />
+
 *Browse products with advanced filtering options*
 
 ### 📦 Product Details
-![Product Details](./screenshots/product-details.png)
+<img width="1917" height="870" alt="Screenshot 2026-02-12 155514" src="https://github.com/user-attachments/assets/7988221f-8cb7-4d63-a05f-04ff1d990a87" />
+
 *Detailed product view with image gallery and variant selection*
 
 ### 🛒 Shopping Cart
-<img width="599" height="856" alt="Screenshot 2026-02-12 160330" src="https://github.com/user-attachments/assets/2da2aa31-4f68-4fbf-9c06-9cd0f1bcab1a" />
+<img width="1919" height="860" alt="Screenshot 2026-02-12 161652" src="https://github.com/user-attachments/assets/254615b6-eb40-4276-85ae-eb6d4936d9cc" />
+
 
 *Seamless cart experience with quantity management*
 
 ### 💳 Checkout
-![Checkout](./screenshots/checkout.png)
-*Secure checkout with PayPal integration*
+<img width="1893" height="867" alt="Screenshot 2026-02-12 161724" src="https://github.com/user-attachments/assets/e7c67384-0106-474c-b24b-1269b994ee8a" />
 
-### 👤 User Dashboard
-![User Profile](./screenshots/profile.png)
-*User profile and order management*
+*Secure checkout with PayPal integration*
 
 ### 📋 Order History
 <img width="1890" height="873" alt="Screenshot 2026-02-12 160205" src="https://github.com/user-attachments/assets/00bf937c-6940-4f24-ae42-1dc066774503" />
@@ -46,6 +46,8 @@ A full-stack e-commerce application built with the MERN stack, featuring a beaut
 
 ### 🔐 Authentication
 <img width="1894" height="867" alt="Screenshot 2026-02-12 155740" src="https://github.com/user-attachments/assets/03354bf2-2f22-494d-a8fe-bf72ced24dd3" />
+
+<br></br>
 
 <img width="1888" height="865" alt="Screenshot 2026-02-12 155624" src="https://github.com/user-attachments/assets/1c2580ee-87d1-43b7-8692-7f5fc7dbfa26" />
 
