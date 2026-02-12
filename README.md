@@ -6,15 +6,16 @@ A full-stack e-commerce application built with the MERN stack, featuring a beaut
 
 ## 🌟 Live Demo
 
-- **Frontend:** [https://your-frontend.vercel.app](https://your-frontend.vercel.app)
-- **Backend API:** [https://your-backend.vercel.app](https://your-backend.vercel.app)
+- **Frontend:** https://rabbitfashion.vercel.app/
+- **Backend API:** https://rabbit-peach-five.vercel.app/
 
 ---
 
 ## 📸 Screenshots
 
 ### 🏠 Homepage
-![Homepage](./screenshots/homepage.png)
+![Homepage]<img width="1893" height="869" alt="Screenshot 2026-02-12 155451" src="https://github.com/user-attachments/assets/92884a80-1a8a-4831-81c7-32993346ac8f" />
+
 *Beautiful landing page with featured products and collections*
 
 ### 🛍️ Product Collection
