@@ -53,7 +53,7 @@ router.post("/", protect, async (req, res) => {
       isPaid: false,
     });
 
-    console.log(`Checkout created for user: ${req.user._id}`);
+    
     res.status(201).json(newCheckout);
 
   } catch (error) {

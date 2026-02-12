@@ -12,7 +12,7 @@ const CartDrawer = ({drawerOpen, toggleCartDrawer}) => {
 
   const cart = useSelector((state) => state.cart.cart);
 
-  console.log("CART FROM REDUX:", cart);
+  
   const { user, guestId } = useSelector((state) => state.auth); 
 
   const userId = user ? user._id : null;

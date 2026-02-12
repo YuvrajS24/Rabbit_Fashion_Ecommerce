@@ -16,7 +16,7 @@ try{
 
     res.json(users);
 
-}catch{
+}catch(error){
 
 console.error(error);
 
@@ -121,7 +121,7 @@ router.delete("/:id",protect, admin, async(req,res)=>{
             res.status(400).json({message:"User not found!"})
         }
 
-    }catch{
+    }catch (error){
 
         console.error(error);
 
