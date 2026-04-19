@@ -7,7 +7,6 @@ import axios from "axios"
 const loadCartFromStorage = () =>{
 
 const storedCart = localStorage.getItem("cart");
-
 return storedCart? JSON.parse(storedCart): {products : []}
 
 };
@@ -17,26 +16,25 @@ return storedCart? JSON.parse(storedCart): {products : []}
 
 const saveCartToStorage =  (cart) => {
 
-
-localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("cart", JSON.stringify(cart));
 
 }
 
 
 //Fetch cart for a user or guest 
 
-export const fetchCart = createAsyncThunk("cart/fetchcart" , async({userId, guestId}, {rejectWithValue}) =>{
+export const fetchCart = createAsyncThunk("cart/fetchcart" , async({userId, guestId}, {rejectWithValue}) => {
 
 try {
 
     const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/cart`, {
-         
-        params: {userId, guestId},
+      
+    params: {userId, guestId},
 
-    });
+   });
    
 
-    return response.data;
+  return response.data;
 
 
 } catch (error) {
@@ -47,18 +45,20 @@ try {
     
 }
 
-
 })
+
 
 
 //Add an item to the cart for a user or guest 
 
 export const addToCart = createAsyncThunk("cart/addToCart", async({productId, quantity, size, color, guestId, userId},
+
     {rejectWithValue})=>{
 
         try{
 
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart`, {
+
                   productId,
                   quantity,
                   size,
@@ -76,13 +76,15 @@ export const addToCart = createAsyncThunk("cart/addToCart", async({productId, qu
 
         }
 
-
 });
+
+
 
 
 //Upload the quantity of an item in the cart 
 
 export const updateCartItemQuantity = createAsyncThunk("cart/updateCartItemQuantity" , 
+
      async({productId, quantity, guestId, userId, size,  color}, {rejectWithValue})=>{
 
 
@@ -107,14 +109,15 @@ export const updateCartItemQuantity = createAsyncThunk("cart/updateCartItemQuant
 
         }
 
-     });
+});
 
 
-     //Remove an item from cart 
+//Remove an item from cart 
 
-   export  const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({productId, guestId, userId, size, color}, {rejectWithValue})=>{
+
+  export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({productId, guestId, userId, size, color}, {rejectWithValue})=>{
    
-    try {
+  try {
 
         const response = await axios({
               
@@ -139,9 +142,10 @@ export const updateCartItemQuantity = createAsyncThunk("cart/updateCartItemQuant
 
 export const mergeCart = createAsyncThunk("cart/mergeCart", async ({guestId, user}, {rejectWithValue} ) => {
 
-    try {
 
-        const response  = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/merge`, {guestId, user}, {
+    try {
+      
+      const response  = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/merge`, {guestId, user}, {
 
           headers:{
 
@@ -156,10 +160,14 @@ export const mergeCart = createAsyncThunk("cart/mergeCart", async ({guestId, use
     } catch (error) {
         
         return rejectWithValue(error.response.data);
+
     }
 
 
 });
+
+
+
 
 
 const cartSlice = createSlice({
@@ -175,6 +183,10 @@ const cartSlice = createSlice({
       localStorage.removeItem("cart");
     },
   },
+
+
+
+
   extraReducers: (builder) => {
     builder
 
@@ -189,7 +201,6 @@ const cartSlice = createSlice({
   state.error = null;
   saveCartToStorage(action.payload);
 })
-
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch cart";
@@ -220,7 +231,7 @@ const cartSlice = createSlice({
       })
      .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
   state.loading = false;
-  state.cart = action.payload;    // ✅
+  state.cart = action.payload;   
   state.error = null;
   saveCartToStorage(action.payload);
 })
@@ -246,6 +257,10 @@ const cartSlice = createSlice({
         state.loading = false;
         state.error = action.payload?.message || "Failed to remove item";
       })
+
+
+
+
 
 
       .addCase(mergeCart.pending, (state) => {

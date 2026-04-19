@@ -19,6 +19,7 @@ router.post("/register", async(req,res)=>{
 
 
     try{
+        
         //Registration Logic
 
         let user = await User.findOne({email});
@@ -36,7 +37,7 @@ router.post("/register", async(req,res)=>{
 
         // CREATE JWT PAYLOAD 
         
-        const payload = {user: {id:user._id , role: user.role}};
+        const payload = {user: {id:user._id , role: user.role}} ;
 
 
 
@@ -106,7 +107,7 @@ router.post("/login", async(req,res)=>{
 
 
 
-                // CREATE JWT PAYLOAD 
+         // CREATE JWT PAYLOAD 
         
         const payload = {user: {id:user._id , role: user.role}};
 
@@ -133,7 +134,6 @@ router.post("/login", async(req,res)=>{
 
 
                 token,
-
 
             })
      

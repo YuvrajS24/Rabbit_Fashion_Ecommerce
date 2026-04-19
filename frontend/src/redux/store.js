@@ -13,7 +13,7 @@ import adminOrderReducer from "./slices/adminOrderSlice"
 
 
 const store = configureStore({
-
+ 
     reducer:{
 
          auth: authReducer,
@@ -24,10 +24,11 @@ const store = configureStore({
          admin:adminReducer,
          adminProducts: adminProductReducer,
          adminOrders:adminOrderReducer,
+         
     },
   
-    
-
 })
+
+
 
 export default store;

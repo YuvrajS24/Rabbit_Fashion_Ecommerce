@@ -215,13 +215,14 @@ router.delete("/", async (req,res)=> {
                && p.size=== size
                && p.color === color
             );
+
+
             
        if(productIndex> -1){
             
         cart.products.splice(productIndex, 1);
 
         cart.totalPrice = cart.products.reduce((acc, item)=> acc + item.price* item.quantity, 0);
-
 
         await cart.save()
 
@@ -287,12 +288,15 @@ router.get("/", async (req,res) =>{
 
 
 router.post("/merge", protect, async (req, res) => {
+
   const { guestId } = req.body;
 
   try {
     // guestId check (safety ke liye add kiya)
     if (!guestId) {
+      
       return res.status(400).json({ message: "guestId is required" });
+
     }
 
     const guestCart = await Cart.findOne({ guestId });

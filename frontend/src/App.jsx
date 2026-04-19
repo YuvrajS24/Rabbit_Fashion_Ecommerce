@@ -33,6 +33,7 @@ const App = () => {
         
         <Routes>
              <Route path="/" element={<UserLayout/>}>
+
                  <Route index element={<Home/>}/>
                  <Route path="login" element={<Login/>}/>
                  <Route path="register" element={<Register/>}/>
@@ -47,8 +48,7 @@ const App = () => {
              </Route>
 
 
-             <Route path="/admin"
-              element={<ProtectedRoute role="admin">
+             <Route path="/admin"  element={<ProtectedRoute role="admin">
                  
                <AdminLayout/> 
                

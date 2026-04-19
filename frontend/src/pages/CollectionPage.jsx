@@ -21,10 +21,9 @@ const CollectionPage = () => {
 
     const {products, loading, error} = useSelector((state)=> state.products);
 
+
     const queryParams = Object.fromEntries([...searchParams])
       
-   
-
     const sidebarRef = useRef(null)
 
 

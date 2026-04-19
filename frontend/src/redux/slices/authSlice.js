@@ -24,8 +24,8 @@ const initialState = {
 }
 
 
-// Async Thunk for user Login
 
+// Async Thunk for user Login
 export const loginUser = createAsyncThunk( "auth/loginUser",  async (userData, { rejectWithValue }) => {
 
     try {
@@ -38,7 +38,9 @@ export const loginUser = createAsyncThunk( "auth/loginUser",  async (userData, {
       return response.data.user;
       
     } catch (error) {
+
       return rejectWithValue(error.response.data);
+      
     }
   }
 
@@ -46,7 +48,6 @@ export const loginUser = createAsyncThunk( "auth/loginUser",  async (userData, {
 
 
 // Async Thunk for User Registration
-
 export const registerUser = createAsyncThunk( "auth/registerUser",  async (userData, { rejectWithValue }) => {
 
 
@@ -60,7 +61,9 @@ export const registerUser = createAsyncThunk( "auth/registerUser",  async (userD
       return response.data.user;
       
     } catch (error) {
+
       return rejectWithValue(error.response.data);
+
     }
   }
 
@@ -69,7 +72,6 @@ export const registerUser = createAsyncThunk( "auth/registerUser",  async (userD
 
 
 //Slice
-
 
 const authSlice = createSlice({
 
@@ -110,18 +112,20 @@ extraReducers:(builder) =>{
           
         state.loading = true;
         state.error = null ;
+        
     })
     .addCase(loginUser.fulfilled, (state, action)=>{
           
         state.loading = false;
-       state.user = action.payload;
+        state.user = action.payload;
         state.error = null;
         
     })
     .addCase(loginUser.rejected, (state,action)=>{
           
         state.loading = false;
-        state.error = action.payload.message ;
+        state.error = action.payload.message;
+
     })
 
 

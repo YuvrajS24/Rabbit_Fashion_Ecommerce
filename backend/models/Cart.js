@@ -18,7 +18,7 @@ const cartItemSchema = new mongoose.Schema({
     image:String,
 
 
-price: Number,
+    price: Number,
 
 
     size:String,
@@ -31,7 +31,11 @@ price: Number,
         default:1,
 
     }
+
 },{_id:false});
+
+
+
 
 
 const cartSchema = new mongoose.Schema({
@@ -40,6 +44,7 @@ const cartSchema = new mongoose.Schema({
 
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
+        
     },
 
     guestId:{
@@ -50,6 +55,7 @@ const cartSchema = new mongoose.Schema({
 
 
     products:[cartItemSchema],
+
     totalPrice:{
 
         type:Number,
