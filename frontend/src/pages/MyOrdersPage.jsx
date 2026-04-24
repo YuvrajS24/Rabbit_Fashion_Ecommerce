@@ -45,19 +45,19 @@ const MyOrdersPage = () => {
         My Orders
     </h2>
 
-    <div className='relative shadow-md sm:rounded-lg overflow-hidden'>
+    <div className='relative shadow-md sm:rounded-lg overflow-x-auto'>
 
       <table className='min-w-full text-left text-gray-500'>
 
       <thead className='bg-gray-100 text-xs uppercase text-gray-700'>
           <tr>
-            <th className='py-2 px-4 sm:py-3'>Image</th>
-            <th className='py-2 px-4 sm:py-3'>Order Id</th>
-            <th className='py-2 px-4 sm:py-3'>Created</th>
-            <th className='py-2 px-4 sm:py-3'>Shipping Address</th>
-            <th className='py-2 px-4 sm:py-3'>Items</th>
-            <th className='py-2 px-4 sm:py-3'>Price</th>
-            <th className='py-2 px-4 sm:py-3'>Status</th>
+            <th className='py-2 px-4 sm:py-3 text-left'>Image</th>
+            <th className='py-2 px-4 sm:py-3 text-left'>Order Id</th>
+            <th className='py-2 px-4 sm:py-3 text-left'>Created</th>
+            <th className='py-2 px-4 sm:py-3 text-left'>Shipping Address</th>
+            <th className='py-2 px-4 sm:py-3 text-left'>Items</th>
+            <th className='py-2 px-4 sm:py-3 text-left'>Price</th>
+            <th className='py-2 px-4 sm:py-3 text-center'>Status</th>
           </tr>
 
       </thead>
@@ -70,9 +70,9 @@ const MyOrdersPage = () => {
            ( orders.map((order)=> (
 
                 <tr key={order._id} onClick={()=> handleRowClick(order._id)}
-                 className='border-b hover:border-gray-50 cursor-pointer'>
+                 className='border-b hover:bg-gray-50 cursor-pointer'>
 
-                    <td className="py-2 px-2 sm:py-4 sm:px-4">
+                    <td className="py-2 px-2 sm:py-4 sm:px-4 text-left">
                         <img className='w-10 h-10 sm:w-12 sm:h-12 object-cover rounded-lg '
                          src={order.orderItems?.[0]?.image} alt={order.orderItems?.[0]?.name}/>
                     </td>
@@ -82,33 +82,35 @@ const MyOrdersPage = () => {
                        #{order._id}
                     </td>
 
-                    <td className='py-2 px-2 sm:py-4 sm:px-4 '>
+                    <td className='py-2 px-2 sm:py-4 sm:px-4 text-left '>
 
-                      {new Date(order.createdAt).toLocaleDateString()}{" "}
-                      {new Date(order.createdAt).toLocaleTimeString()}
+                      <div className='flex flex-col'>
+                              <span>{new Date(order.createdAt).toLocaleDateString()}</span>
+                              <span className='text-xs text-gray-400'>{new Date(order.createdAt).toLocaleTimeString()}</span>
+                       </div>
 
 
                 </td>
                
-               <td className='py-2 px-2 sm:py-4 sm:px-4 '>
+               <td className='py-2 px-2 sm:py-4 sm:px-4  text-left'>
 
                  {order.shippingAddress ? `${order.shippingAddress.city},${order.shippingAddress.country}`:"N/A"}
 
                </td>
 
-               <td className='py-2 px-2 sm:py-4 sm:px-4 '>
+               <td className='py-2 px-2 sm:py-4 sm:px-4  text-left '>
 
                {order.orderItems?.length || 0}
 
                </td>
 
-               <td className='py-2 px-2 sm:py-4 sm:px-4 '>
+               <td className='py-2 px-2 sm:py-4 sm:px-4  text-left '>
 
                {order.totalPrice}
 
                </td>
 
-               <td className='py-2 px-2 sm:py-4 sm:px-4 '>
+               <td className='py-2 px-2 sm:py-4 sm:px-4  text-center'>
 
                <span className={`px-2 py-1 rounded-full text-xs sm:text-sm font-medium ${order.isPaid? "bg-green-100 text-green-700":"bg-red-100 text-red-700"}`}>
 
