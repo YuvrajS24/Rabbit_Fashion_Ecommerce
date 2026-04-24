@@ -59,7 +59,6 @@ const orderSlice = createSlice({
  initialState:{
   
     orders:[],
-    totalOrders : 0,
     orderDetails: null,
     loading:false,
     error: null,
