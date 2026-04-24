@@ -105,32 +105,31 @@ router.put("/:id", protect, admin, async(req,res)=>{
 //@route DELETE /api/admin/users/:Id
 //@desc Delete a user 
 //@access Private/Admin
-router.delete("/:id",protect, admin, async(req,res)=>{
 
-    try{
+router.delete("/:id", protect , admin , async (req,res) => {
 
-        const user = await User.findById(req.params.id);
+try{
 
-        if(user){
-
-            await User.deleteOne();
-            res.json({message:"User Deleted successfully"});
-
-        }else{
-
-            res.status(400).json({message:"User not found!"})
-        }
-
-    }catch (error){
-
-        console.error(error);
-
-        res.status(500).json({message:"Server Error"})
+ const user = await User.findByIdAndDelete(req.params.id);
 
 
-    }
+ if(!user){
 
-})
+return res.status(404).json({message:"User not found!"});
+
+ }
+
+res.json({message: "User deleted successfully"});
+
+} catch (error) {
+
+console.error("Delete user error:", error);
+res.status(500).json({message: "Server Error"});
+
+
+}
+
+});
 
 
 

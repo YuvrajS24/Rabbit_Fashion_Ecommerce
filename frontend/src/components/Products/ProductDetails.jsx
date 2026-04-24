@@ -32,8 +32,11 @@ const ProductDetails = ({productId}) => {
 
             dispatch(fetchProductDetails(productFetchId));
             dispatch(fetchSimilarProducts({ id: productFetchId }))
+            
         }
     }, [dispatch, productFetchId])
+
+    
 
     useEffect(() => {
         
@@ -109,7 +112,9 @@ const ProductDetails = ({productId}) => {
 
   }
 
+
   return (
+
     <div className='p-6'>
 
     {selectedProduct && (
@@ -142,7 +147,7 @@ const ProductDetails = ({productId}) => {
                       <div className='mb-4 '>
 
                            <img src={mainImage} alt="Main Product"
-                           className='w-ful h-auto object-cover rounded-corners rounded-lg' />
+                           className='w-full h-auto object-cover rounded-corners rounded-lg' />
 
                       </div>
 
@@ -150,7 +155,7 @@ const ProductDetails = ({productId}) => {
 
                {/* Mobile Thumbnails */}
 
-               <div className='md:hidden flex overscroll-x-scroll'>
+               <div className='md:hidden flex overflow-x-scroll'>
 
                            {selectedProduct.images.map((image,index)=>(
                  <img 
@@ -167,6 +172,7 @@ const ProductDetails = ({productId}) => {
 
                </div>
              
+
               {/* Right Side */}
 
               <div className='md:w-1/2 md:ml-10 '>
@@ -247,15 +253,15 @@ const ProductDetails = ({productId}) => {
                                 -
                              </button>
 
-                             <span className='text-lg'>
-                                {quantity}
-                             </span>
+                               <span className='text-lg'>
+                                  {quantity}
+                               </span>
 
                                   <button
                                   onClick={()=>{handleQuantityChange("plus")}}
                                    className='px-2 py-1 bg-gray-200 rounded text-lg'>
-                                +
-                             </button>
+                                     +
+                                 </button>
                     </div>
 
                 </div>

@@ -39,9 +39,11 @@ try {
 
 } catch (error) {
 
-    console.error(error);
+    if (error.response && error.response.status === 404) {
+      return { products: [], totalPrice: 0 }
+    }
 
-    return rejectWithValue(error.response.data);
+    return rejectWithValue(error.response.data)
     
 }
 
@@ -171,6 +173,7 @@ export const mergeCart = createAsyncThunk("cart/mergeCart", async ({guestId, use
 
 
 const cartSlice = createSlice({
+
   name: "cart",
   initialState: {
     cart: loadCartFromStorage(),
@@ -196,14 +199,14 @@ const cartSlice = createSlice({
         state.error = null;
       })
      .addCase(fetchCart.fulfilled, (state, action) => {
-  state.loading = false;
-  state.cart = action.payload;    
-  state.error = null;
-  saveCartToStorage(action.payload);
+         state.loading = false;
+         state.cart = action.payload;    
+         state.error = null;
+         saveCartToStorage(action.payload);
 })
       .addCase(fetchCart.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || "Failed to fetch cart";
+        state.error = action.payload?.message || "Failed to fetch cart";
       })
 
 
@@ -269,7 +272,7 @@ const cartSlice = createSlice({
       })
       .addCase(mergeCart.fulfilled, (state, action) => {
   state.loading = false;
-  state.cart = action.payload;    // ✅
+  state.cart = action.payload;   
   state.error = null;
   saveCartToStorage(action.payload);
 })

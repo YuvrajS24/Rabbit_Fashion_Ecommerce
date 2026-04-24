@@ -26,10 +26,12 @@ const initialState = {
 
 
 // Async Thunk for user Login
+
 export const loginUser = createAsyncThunk( "auth/loginUser",  async (userData, { rejectWithValue }) => {
 
-    try {
 
+    try {
+   
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, userData );
 
       localStorage.setItem("userInfo", JSON.stringify(response.data.user));
@@ -148,6 +150,7 @@ extraReducers:(builder) =>{
           
         state.loading = false;
         state.error = action.payload.message;
+
     })
 
 
@@ -161,3 +164,5 @@ extraReducers:(builder) =>{
 export const {logout, generateNewGuestId } = authSlice.actions;
 
 export default authSlice.reducer;
+
+

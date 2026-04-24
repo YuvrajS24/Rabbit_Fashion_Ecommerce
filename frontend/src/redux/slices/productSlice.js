@@ -2,8 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-//Async Thunk to Fetch Products by Collection and optional Filters
 
+
+
+
+//Async Thunk to Fetch Products by Collection and optional Filters
 
 export const fetchProductsByFilters = createAsyncThunk("products/fetchByFilters" ,
     
@@ -22,7 +25,7 @@ material,
 brand,
 limit,
 
-})=>{
+}) => {
 
     const query = new URLSearchParams();
 
@@ -75,6 +78,7 @@ const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/produc
 );
 
 return response.data;
+
 } )
 
 
@@ -123,8 +127,7 @@ reducers:{
 
     setFilters: (state, action) => {
         
-        state.filters = {...state.filters, ...action.payload};
-
+    state.filters = {...state.filters, ...action.payload};
 
     },
 

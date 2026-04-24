@@ -81,7 +81,7 @@ try{
     res.json({imageUrl: result.secure_url});
 
 
-}catch{
+}catch(error){
 
     console.error(error);
 

@@ -1,6 +1,8 @@
+const dotenv = require('dotenv');
+dotenv.config()
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
+
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes')
 const productRoutes = require('./routes/productRoutes')
@@ -16,10 +18,17 @@ const adminOrderRoutes = require('./routes/adminOrderRoutes')
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://rabbit-peach-five.vercel.app",
+    "http://localhost:5173"
+  ],
+  credentials: true,
+}));
 
 
-dotenv.config()
+
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -60,6 +69,9 @@ res.send('WELCOME TO RABBIT API!');
 
 });
 
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
+
 
 module.exports = app;
-

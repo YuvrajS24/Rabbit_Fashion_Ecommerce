@@ -65,7 +65,7 @@ const OrderConfirmation = () => {
             <div>
                 <h2 className="text-xl font-semibold">
 
-                    ORDER ID: {checkout._id};
+                    ORDER ID: {checkout._id}
                 </h2>
 
                 <p className="text-gray-500">

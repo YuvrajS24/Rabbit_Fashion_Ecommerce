@@ -82,9 +82,7 @@ const toggleCartDrawer = () =>{
            
            {cartItemCount> 0 && (<span className='absolute -top-1 bg-rabbit-red text-white text-xs rounded-full px-2 py-0.5'>{cartItemCount}</span>)}
 
-          
-       
-       </button>
+        </button>
 
        {/*  Search */ }
 
@@ -105,6 +103,9 @@ const toggleCartDrawer = () =>{
      </div>
 
 </nav>
+
+
+
 
 <CartDrawer drawerOpen={drawerOpen} toggleCartDrawer={toggleCartDrawer}/>
 

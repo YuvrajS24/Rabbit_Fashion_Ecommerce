@@ -8,7 +8,9 @@ const protect = async (req, res, next) => {
   let token;
 
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer ")) {
+
     try {
+
       token = req.headers.authorization.split(" ")[1];
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -19,8 +21,7 @@ const protect = async (req, res, next) => {
         return res.status(401).json({ message: "User not found" });
       }
 
-     
-      req.user = user;
+    req.user = user;
 
       next();
     } catch (error) {
@@ -31,6 +32,8 @@ const protect = async (req, res, next) => {
     return res.status(401).json({ message: "Not authorized, no token provided" });
   }
 };
+
+
 
 // Middleware to check if the user is an admin
 const admin = (req, res, next) => {

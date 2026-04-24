@@ -10,6 +10,7 @@ const FilterSidebar = () => {
 
     const[filters, setFilters] = useState({
 
+
         category:"",
         gender:"",
         color:"",
@@ -117,6 +118,7 @@ setPriceRange([0, params.maxPrice || 100]);
   setFilters(newFilters);
 
   updateURLParams(newFilters);
+  
 }
 
 
@@ -226,9 +228,9 @@ const handlePriceChange = (e) =>{
              ${filters.color === color? "ring-2 ring-blue-500" : ""}`}
              style={{backgroundColor:color.toLowerCase()} }
             >
+     
+        </button>
 
-
-            </button>
           ))}
 
         </div>
@@ -328,8 +330,9 @@ const handlePriceChange = (e) =>{
 
   </div>
 
-{/*  Price Range Filter */}
 
+
+{/*  Price Range Filter */}
 
 <div className='mb-8 '>
 

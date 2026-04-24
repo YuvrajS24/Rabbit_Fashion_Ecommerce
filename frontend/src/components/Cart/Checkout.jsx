@@ -37,7 +37,7 @@ const [shippingAddress, setShippingAddress] = useState({
 
 
   //Ensure cart is loaded before proceeding
- 
+  
   useEffect(()=>{
      
     if(!cart || !cart.products || cart.products.length === 0){

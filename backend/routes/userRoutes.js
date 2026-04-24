@@ -23,14 +23,10 @@ router.post("/register", async(req,res)=>{
         //Registration Logic
 
         let user = await User.findOne({email});
-
-
+       
         if(user) return res.status(400).json({message:"User alread exists"});
 
-
-
         user = new User({name,email,password});
-
 
         await user.save();
 

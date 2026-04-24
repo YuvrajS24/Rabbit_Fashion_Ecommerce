@@ -30,7 +30,7 @@ router.get('/my-orders', protect, async (req, res) => {
 });
 
 // @route  GET /api/orders/:id
-// @desc   vGet order details by ID
+// @desc   Get order details by ID
 // @access PRIVATE
 
 

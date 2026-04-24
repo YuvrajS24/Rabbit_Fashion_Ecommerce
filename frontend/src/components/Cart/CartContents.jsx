@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { removeFromCart, updateCartItemQuantity } from '../../redux/slices/cartSlice';
 
 const CartContents = ({ cart, userId, guestId }) => {
+  
   const dispatch = useDispatch();
 
   const handleAddToCart = (productId, delta, quantity, size, color) => {

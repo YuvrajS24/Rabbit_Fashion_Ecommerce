@@ -28,7 +28,7 @@ router.post("/", protect, async (req, res) => {
     return res.status(400).json({ message: "paymentMethod is required" });
   }
 
-  // ✅Shipping address check
+  // Shipping address check
   if (
     !shippingAddress ||
     !shippingAddress.address ||

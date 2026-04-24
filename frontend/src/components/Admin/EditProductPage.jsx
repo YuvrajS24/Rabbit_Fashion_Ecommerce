@@ -20,7 +20,7 @@ const EditProductPage = () => {
 
 
 
-    const [productData , setProductData] = useState({
+const [productData , setProductData] = useState({
     
         name:"",
         description:"",
@@ -60,13 +60,14 @@ useEffect(()=> {
         setProductData(selectedProduct);
     }
 
-
 }, [selectedProduct])
+
+
+
 
 const handleChange = (e) =>{
 
 const {name,value} =e.target;
-
 setProductData((prevData) => ({...prevData, [name]: value }))
 
 };
@@ -109,12 +110,12 @@ const handleImageUpload = async (e) => {
 };
 
 
-const handleSubmit = (e) =>{
+const handleSubmit = async (e) =>{
 
     e.preventDefault();
 
 
-    dispatch(updateProduct({id, productData}));
+   await dispatch(updateProduct({id, productData}));
 
     navigate("/admin/products");
     
@@ -149,7 +150,6 @@ if(error) return <p>Error: {error}</p>
 
 
                {/* Description */}
-
 
                
                <div className='mb-6'>
@@ -239,7 +239,7 @@ if(error) return <p>Error: {error}</p>
 
 
                
-             {/* Colord */}
+             {/* Colors */}
 
 
                   <div className="mb-6 ">

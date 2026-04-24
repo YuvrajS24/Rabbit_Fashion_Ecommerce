@@ -26,7 +26,7 @@ try {
 
     if(subscriber){
 
-        return res.status(400).json({message:"Email is not subscribed"});
+        return res.status(400).json({message:"Email is already subscribed"});
 
     }
 

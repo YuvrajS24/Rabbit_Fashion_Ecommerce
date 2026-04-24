@@ -303,6 +303,7 @@ router.post("/merge", protect, async (req, res) => {
     const userCart = await Cart.findOne({ user: req.user._id });
 
     if (guestCart) {
+
       if (guestCart.products.length === 0) {
         return res.status(404).json({ message: "Guest Cart is empty" });
       }
@@ -339,6 +340,7 @@ router.post("/merge", protect, async (req, res) => {
         });
 
         return res.status(200).json(userCart);
+        
       } else {
         // User ke paas cart nahi tha → guest cart ko user assign kar do
         guestCart.user = req.user._id;
@@ -346,10 +348,11 @@ router.post("/merge", protect, async (req, res) => {
         await guestCart.save();
         return res.status(200).json(guestCart);
       }
+
     } else {
       // Guest cart nahi mila
       if (userCart) {
-        // Already merged tha → user cart return
+         //guest cart not found , so returning usercart
         return res.status(200).json(userCart);
       }
       return res.status(404).json({ message: "Guest cart not found" });
