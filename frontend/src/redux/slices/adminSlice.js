@@ -6,8 +6,9 @@ import axios from "axios";
 
 export const fetchUsers = createAsyncThunk("admin/fetchUsers", async()=> {
 
+try{
 
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/users`, {
+   const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/users`, {
  
      
       headers:{Authorization: `Bearer ${localStorage.getItem("userToken")}` },
@@ -15,6 +16,16 @@ export const fetchUsers = createAsyncThunk("admin/fetchUsers", async()=> {
     });
         
     return response.data;
+
+
+} catch (error) {
+
+  return rejectWithValue(error.response?.data || error.message);
+
+}
+
+
+   
  });
 
 
@@ -51,12 +62,12 @@ try {
 
 //Update user info 
 
-export const updateUser = createAsyncThunk( "admin/updateUser",  async ({ id, name, email, role }, { rejectWithValue }) => {
+export const updateUser = createAsyncThunk( "admin/updateUser",  async ({ id, role }, { rejectWithValue }) => {
 
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`,
-        { name, email, role },
+        {  role },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -136,31 +147,6 @@ const adminSlice = createSlice({
 
           })
 
-          .addCase(updateUser.fulfilled, (state,action)=>{
-              
-            const updatedUser = action.payload;
-            
-            if (!updatedUser || !updatedUser._id) return;
-
-            const userIndex = state.users.findIndex((user)=>user._id === updatedUser._id);
-
-            if(userIndex !== -1){
-
-                state.users[userIndex] = updatedUser;
-
-            }
-
-          })
-
- 
-
-
-     
-
-        .addCase(deleteUser.fulfilled, (state, action) => {
-    state.users = state.users.filter((user) => user._id !== action.payload);
-})
-
 
         .addCase(addUser.pending,  (state)=> {
 
@@ -180,6 +166,29 @@ const adminSlice = createSlice({
             state.error = action.payload.message;
 
         })
+
+
+        
+          .addCase(updateUser.fulfilled, (state,action)=>{
+              
+            const updatedUser = action.payload;
+            
+            if (!updatedUser || !updatedUser._id) return;
+
+            const userIndex = state.users.findIndex((user)=>user._id === updatedUser._id);
+
+            if(userIndex !== -1){
+
+                state.users[userIndex] = updatedUser;
+
+            }
+
+          })
+
+             .addCase(deleteUser.fulfilled, (state, action) => {
+                 state.users = state.users.filter((user) => user._id !== action.payload);
+             })
+
     }
 
 

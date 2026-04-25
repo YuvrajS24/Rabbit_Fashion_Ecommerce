@@ -25,6 +25,7 @@ const UserManagement = () => {
   }
 }, [user, navigate]);
 
+
 useEffect(() => {
   if (user && user.role === "admin") {
     dispatch(fetchUsers());
@@ -44,7 +45,7 @@ useEffect(() => {
    } );
 
 
-   const handleChange = (e) => {
+const handleChange = (e) => {
 
     setFormData({
          
@@ -150,18 +151,17 @@ const handleDeleteUser = (userId) => {
              <option value="customer">Customer</option>
              <option value="admin">Admin</option>
 
- </select>
+            </select>
 
          </div>
 
 
 
-         <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Add User </button>
+         <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"> Add User </button>
 
 
 
-
-     </form>
+   </form>
 
     </div>
 
