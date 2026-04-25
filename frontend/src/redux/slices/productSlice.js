@@ -63,24 +63,6 @@ export const fetchProductDetails =  createAsyncThunk("products/fetchProductDetai
 })
 
 
-//Async thunk to fetch similar products 
-
-export const updateProduct = createAsyncThunk("products/updateProduct", async({id, productData})=>{
-
-const token = localStorage.getItem("userToken");
-
-const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, productData, 
-    {
-         headers:{
-            Authorization: `Bearer ${token}`
-         }
-    }
-);
-
-return response.data;
-
-} )
-
 
 //Async thunk to fetch similar products
 
@@ -211,38 +193,8 @@ extraReducers:(builder) => {
     }  )
 
 
-    //Handle updating product
+  
 
-
-     .addCase(updateProduct.pending, (state)=> {
-
-        state.loading = true;
-        state.error = null;
-
-    })
-
-    .addCase(updateProduct.fulfilled, (state, action) => {
-           
-        state.loading = false;
-        
-        const updateProduct = action.payload;
-
-        const index = state.products.findIndex((product)=> product._id === updateProduct._id);
-
-        if(index !== -1){
-
-            state.products[index] = updateProduct;
-        }
-     
-    })
-
-
-    .addCase(updateProduct.rejected, (state, action)=> {
-        
-        state.loading = false;
-        state.error = action.error.message;
-
-    }  )
 
 
     // Fetch Similar Products

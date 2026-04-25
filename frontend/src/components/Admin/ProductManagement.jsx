@@ -54,7 +54,7 @@ const ProductManagement = () => {
 
       </tr>
 
- </thead>
+      </thead>
 
  <tbody>
    
@@ -73,7 +73,7 @@ const ProductManagement = () => {
         <td className="p-4">
            
            <Link to={`/admin/products/${product._id}/edit`} 
-           className='bg-yellow-500 text-white px-2 py-1 rounded
+           className=' inline-block bg-yellow-500 text-white px-2 py-1 rounded
            hover:bg-yellow-600 mr-2 '> Edit  </Link>
 
            <button

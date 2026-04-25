@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductDetails } from '../../redux/slices/productSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { updateProduct } from '../../redux/slices/productSlice';
+import { updateProduct } from '../../redux/slices/adminProductSlice';
 
 
 const EditProductPage = () => {
