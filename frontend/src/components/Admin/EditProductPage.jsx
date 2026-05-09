@@ -38,7 +38,7 @@ const [productData , setProductData] = useState({
 
 });
 
-const [uploading , setUploading] = useState(false);  //Image uploading state
+const [uploading , setUploading] = useState(false);  
 
 
 useEffect(() => {
@@ -214,7 +214,7 @@ if(error) return <p>Error: {error}</p>
              {/* Sizes */}
 
 
-                  <div className="mb-6 ">
+               <div className="mb-6 ">
 
                 <label className='block font-semibold mb-2'>Sizes (comma-separated)</label>
 
@@ -231,7 +231,7 @@ if(error) return <p>Error: {error}</p>
                     className='w-full border border-gray-300 rounded-md p-2 '
                 />
 
-             </div>
+               </div>
                
 
 

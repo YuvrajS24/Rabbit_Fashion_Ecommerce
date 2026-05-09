@@ -34,24 +34,6 @@ export const fetchAdminProducts = createAsyncThunk("adminProducts/fetchProducts"
 })
 
 
-//async function to create a new product 
-
-export const createProduct = createAsyncThunk("adminProducts/createProduct", async(productData)=>{
-
-const token = localStorage.getItem("userToken");
-
-const response = await axios.post(`${API_URL}/api/admin/products`, productData, {
-
-    headers:{
-
-       Authorization: `Bearer ${token}`,
-    }
-
-} );
-
-return response.data;
-
-})
 
 
 //ASYNC THUNK to update an existing product 
@@ -136,15 +118,7 @@ const adminProductSlice = createSlice({
           })
 
 
-          //Create Product
-
-          .addCase(createProduct.fulfilled, (state, action)=>{
-              
-            state.products.push(action.payload);
-
-          })
-
-
+      
           //Update Product
 
           .addCase(updateProduct.fulfilled, (state,action)=>{
