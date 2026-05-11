@@ -54,21 +54,23 @@ useEffect(() => {
 
 
 useEffect(()=> {
-  
-    if(selectedProduct){
 
-        setProductData(selectedProduct);
+    if(selectedProduct && selectedProduct._id !== productData._id){
+
+          setProductData(structuredClone(selectedProduct));
+
     }
-
 }, [selectedProduct])
+
+
 
 
 
 
 const handleChange = (e) =>{
 
-const {name,value} =e.target;
-setProductData((prevData) => ({...prevData, [name]: value }))
+const {name,value, type} =e.target;
+setProductData((prevData) => ({...prevData, [name]: type === "number" ? Number(value) : value   }))
 
 };
 
@@ -115,9 +117,13 @@ const handleSubmit = async (e) =>{
     e.preventDefault();
 
 
-   await dispatch(updateProduct({id, productData}));
+const result = await dispatch(updateProduct({id, productData}));
 
+if(result.meta.requestStatus === "fulfilled"){
     navigate("/admin/products");
+} else {
+    alert("Update failed. Please try again.");
+}
     
 }
 
@@ -218,7 +224,7 @@ if(error) return <p>Error: {error}</p>
 
                 <label className='block font-semibold mb-2'>Sizes (comma-separated)</label>
 
-                <input type="text" name="sizes" value={productData.sizes.join(", ")}
+                <input type="text" name="sizes" value={(productData.sizes || []).join(", ")}
 
                     onChange={(e)=> setProductData(
 
@@ -246,7 +252,7 @@ if(error) return <p>Error: {error}</p>
 
                 <label className='block font-semibold mb-2'>Colors (comma-separated)</label>
 
-                <input type="text" name="colors" value={productData.colors.join(", ")}
+                <input type="text" name="colors" value={(productData.colors || []).join(", ")}
 
                     onChange={(e)=> setProductData(
 

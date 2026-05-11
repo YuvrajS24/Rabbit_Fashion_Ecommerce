@@ -14,7 +14,7 @@ const ProductManagement = () => {
 
   useEffect(()=> {
       
-    dispatch(fetchAdminProducts())
+    dispatch(fetchAdminProducts());
 
   }, [dispatch])
 
@@ -32,8 +32,9 @@ const ProductManagement = () => {
     if (loading) return <p>Loading... </p>
     if (error) return <p>Error: {error} </p>
 
-  return (
 
+
+  return (
 
     <div className='max-w-7xl mx-auto p-6 '>
 
@@ -67,8 +68,8 @@ const ProductManagement = () => {
               {product.name}
         </td>
 
-        <td className="p-4">${product.price}</td>
-        <td className="p-4">{product.sku}</td>
+        <td className="p-4">${product.price} </td>
+        <td className="p-4">{product.sku} </td>
 
         <td className="p-4">
            
