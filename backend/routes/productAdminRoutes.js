@@ -35,14 +35,32 @@ router.put("/:id", protect, admin, async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
-    Object.assign(product, req.body);
+
+    const {
+      name,description,price,countInStock,sku,category,brand,sizes,colors,collections,material,gender,images,
+    } = req.body;
+
+    if (name !== undefined) product.name = name;
+    if (description !== undefined) product.description = description;
+    if (price !== undefined) product.price = price;
+    if (countInStock !== undefined) product.countInStock = countInStock;
+    if (sku !== undefined) product.sku = sku;
+    if (category !== undefined) product.category = category;
+    if (brand !== undefined) product.brand = brand;
+    if (sizes !== undefined) product.sizes = sizes;
+    if (colors !== undefined) product.colors = colors;
+    if (collections !== undefined) product.collections = collections;
+    if (material !== undefined) product.material = material;
+    if (gender !== undefined) product.gender = gender;
+    if (images !== undefined) product.images = images;
+
     const updatedProduct = await product.save();
     res.json(updatedProduct);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server Error" });
   }
 });
-
 
 
 //@route DELETE /api/admin/products/:id
