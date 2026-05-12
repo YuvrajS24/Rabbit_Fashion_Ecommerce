@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateOrderStatus } from '../../redux/slices/adminOrderSlice';
+import { fetchAllOrders, updateOrderStatus, deleteOrder } from '../../redux/slices/adminOrderSlice';
 import { useNavigate } from "react-router-dom";
-import { fetchAllOrders } from '../../redux/slices/adminOrderSlice';
+
 
 const OrderManagement = () => {
 
@@ -21,18 +21,8 @@ const {orders, loading, error} = useSelector((state)=> state.adminOrders);
 
 
 useEffect(()=>{
- 
-  if(!user || user.role !== "admin") {
-         
-    navigate("/");
- 
-  }else{
-         
-    dispatch(fetchAllOrders());
-
-  }
-
-}, [dispatch, user, navigate])
+  dispatch(fetchAllOrders());
+}, [dispatch])
 
 
 
@@ -41,6 +31,12 @@ useEffect(()=>{
     dispatch(updateOrderStatus({id: orderId, status}));
 
 }
+
+const handleDeleteOrder = (orderId) => {
+  if (window.confirm("Are you sure you want to delete this order?")) {
+    dispatch(deleteOrder(orderId));
+  }
+};
 
 
 if(loading) return <p>Loading...</p>;
@@ -105,15 +101,25 @@ if(error) return <p>Error:{error}...</p>;
                </select>
 
                </td>
-               <td className="p-4">
+
+               <td className="p-4 ">
 
                 <button onClick={()=>handleStatusChange(order._id,"Delivered")}
-                 className="bg-green-500 text-white px-4 py-2 rounded bg:green-600">
+                 className="bg-green-500 text-white px-4 py-2 mr-2 rounded bg:green-600">
 
                  Mark as Delivered
 
                 </button>
+
+                <button
+                 onClick={() => handleDeleteOrder(order._id)}
+                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                 Delete
+               </button>
+
                </td>
+
+        
 
              
                </tr>

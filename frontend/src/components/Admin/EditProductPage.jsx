@@ -53,14 +53,11 @@ useEffect(() => {
 
 
 
-useEffect(()=> {
-
-    if(selectedProduct && selectedProduct._id !== productData._id){
-
-          setProductData(structuredClone(selectedProduct));
-
+useEffect(() => {
+    if(selectedProduct?._id){
+        setProductData(structuredClone(selectedProduct));
     }
-}, [selectedProduct])
+}, [selectedProduct?._id])
 
 
 

@@ -9,16 +9,9 @@ const AdminHomePage = () => {
 
   const dispatch = useDispatch()
 
-  const { products, loading: productsLoading, error: productsError } =
-    useSelector((state) => state.adminProducts)
+  const { products, loading: productsLoading, error: productsError } = useSelector((state) => state.adminProducts)
 
-  const {
-    orders,
-    totalOrders,
-    totalSales,
-    loading: ordersLoading,
-    error: ordersError,
-  } = useSelector((state) => state.adminOrders)
+  const { orders, totalOrders,totalSales, loading: ordersLoading, error: ordersError} = useSelector((state) => state.adminOrders)
 
   useEffect(() => {
     dispatch(fetchAdminProducts())

@@ -142,6 +142,7 @@ extraReducers: (builder) =>{
         state.totalSales = totalSales;
     
     })
+    
     .addCase(fetchAllOrders.rejected, (state,action) => {
           
         state.loading = false;
