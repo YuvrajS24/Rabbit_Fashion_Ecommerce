@@ -95,15 +95,6 @@ logout:(state)=>{
 
 },
 
-generateNewGuestId: (state) =>{
-
-    state.guestId =  `guest_${new Date().getTime()}`;
-
-    localStorage.setItem("guestId" , state.guestId);
-
-
-},
-
 
 },
 
@@ -161,7 +152,7 @@ extraReducers:(builder) =>{
 
 
 
-export const {logout, generateNewGuestId } = authSlice.actions;
+export const {logout } = authSlice.actions;
 
 export default authSlice.reducer;
 
