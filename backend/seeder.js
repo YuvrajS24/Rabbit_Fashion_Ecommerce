@@ -19,8 +19,8 @@ const seedData = async () => {
         // Create a default admin User
         const createUser = await User.create({
             name: 'Admin User',
-            email: 'admin@example.com',
-            password: '123456',
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD,
             role: "admin"
         });
 
