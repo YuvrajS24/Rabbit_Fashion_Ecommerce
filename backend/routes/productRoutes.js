@@ -51,14 +51,14 @@ router.get("/", async(req,res)=>{
                 }
 
                 if(size){
-                          
+                     //$in -> same field mai se koi ek     
                     query.sizes = {$in: size.split(",")}
 
                 }
 
 
                 if(colors){
-
+                    
                     query.colors = { $in: colors.split(",") };
 
                 }
@@ -83,6 +83,7 @@ router.get("/", async(req,res)=>{
 
                 if(search) {
                      
+                    // $or -> diff fields , diff conditons
                     query.$or = [
                          {name:{ $regex: search, $options: "i"} },
                          {description:{ $regex: search, $options: "i"} },

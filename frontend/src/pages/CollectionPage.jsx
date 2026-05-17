@@ -12,7 +12,7 @@ import { fetchProductsByFilters } from '../redux/slices/productSlice';
 const CollectionPage = () => {
 
 
-    const {collection} = useParams();
+    const {collection} = useParams();  
 
     const [searchParams] = useSearchParams();
 

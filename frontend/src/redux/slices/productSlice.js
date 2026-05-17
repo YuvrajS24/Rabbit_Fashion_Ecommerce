@@ -11,7 +11,6 @@ import axios from "axios";
 export const fetchProductsByFilters = createAsyncThunk("products/fetchByFilters" ,
     
     async({
-
 collection,
 size,
 color,
@@ -87,54 +86,11 @@ initialState:{
     similarProducts:[],
     loading:false,
     error:null,
-    filters:{
-
-        category:"",
-        size:"",
-        color:"",
-        gender:"",
-        brand:"",
-        minPrice:"",
-        maxPrice:"",
-        sortBy:"",
-        search:"",
-        material:"",
-        collection:"",
-        
-    },
+   
 },
 
 
 reducers:{
-
-    setFilters: (state, action) => {
-        
-    state.filters = {...state.filters, ...action.payload};
-
-    },
-
-
-    clearFilters: (state) =>{
-         
-        state.filters = {
-
-            
-        category:"",
-        size:"",
-        color:"",
-        gender:"",
-        brand:"",
-        minPrice:"",
-        maxPrice:"",
-        sortBy:"",
-        search:"",
-        material:"",
-        collection:"",
-
-
-        }
-
-    }
 
 },
 
@@ -219,6 +175,6 @@ extraReducers:(builder) => {
 });
 
 
-export const {setFilters, clearFilters} = productSlice.actions;
+
 
 export default productSlice.reducer;
