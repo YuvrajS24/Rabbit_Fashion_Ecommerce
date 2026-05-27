@@ -16,7 +16,7 @@ const connectDB = async () => {
     cached = connection;
     global.mongoose = connection;
 
-    console.log("MongoDB connected successful!");
+    console.log("MongoDB connection successful!");
 
     return connection;
 
