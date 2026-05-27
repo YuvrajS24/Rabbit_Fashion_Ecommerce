@@ -63,12 +63,14 @@ app.use("/api/admin/orders", adminOrderRoutes);
 
 
 
-app.use("/",(req,res)=>{
-
-res.send('WELCOME TO RABBIT API!');
-
-
+app.get("/", (req, res) => {
+   res.json({ message: "WELCOME TO RABBIT API!" });
 });
+
+app.use((req, res) => {
+    res.status(404).json({ success: false, message: "Route not found" });
+});
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
