@@ -1,32 +1,31 @@
 const mongoose = require('mongoose');
 
-let cached = global.mongoose || null;
+let cached = global.mongoose || { connection: null, promise: null };
 
 const connectDB = async () => {
+    try {
+        if (cached.connection) {
+            console.log("MongoDB reusing existing connection");
+            return cached.connection;
+        }
 
-  try {
+        if (!cached.promise) {
+            cached.promise = mongoose.connect(process.env.MONGO_URI, {
+                maxPoolSize: 10,
+            });
+        }
 
-    if (cached) {
-      console.log("MongoDB reusing existing connection");
-      return cached;
+        cached.connection = await cached.promise;
+        global.mongoose = cached;
+
+        console.log("MongoDB connection successful!");
+        return cached.connection;
+
+    } catch (err) {
+        cached.promise = null;
+        console.error("MongoDB connection failed.", err);
+        process.exit(1);
     }
-
-    const connection = await mongoose.connect(process.env.MONGO_URI);
-
-    cached = connection;
-    global.mongoose = connection;
-
-    console.log("MongoDB connection successful!");
-
-    return connection;
-
-  } catch (err) {
-
-    console.error("MongoDB connection failed.", err);
-    process.exit(1);
-
-  }
-
 };
 
 module.exports = connectDB;
