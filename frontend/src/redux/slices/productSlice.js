@@ -28,9 +28,9 @@ limit,
 
     const query = new URLSearchParams();
 
-    if(collection) query.append("collection", collection);
+    if(collection) query.append("collections", collection);
     if(size) query.append("size", size);
-    if(color) query.append("color", color);
+    if(color) query.append("colors", color);
     if(gender) query.append("gender", gender);
     if(minPrice) query.append("minPrice", minPrice);
     if(maxPrice) query.append("maxPrice", maxPrice);
