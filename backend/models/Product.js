@@ -117,24 +117,6 @@ images:[{
 
 ],
 
-
-isFeatured: {
-
-    type:Boolean,
-    default:false,
-
-
-},
-
-
-isPublished:{
-
-    type:Boolean,
-    default:false,
-
-},
-
-
 rating:{
 
     type:Number,
@@ -163,37 +145,6 @@ user: {
 
 },
 
-metaTitle:{
-
-    type:String,
-
-
-},
-
-
-metaDescription:{
-
-    type:String,
-},
-
-
-metaKeywords:{
-
-    type:String,
-
-
-},
-
-
-dimensions:{
-
-    length:Number,
-    width:Number,
-    height:Number,
-
-},
-
-weight:Number,
 
 },
 
