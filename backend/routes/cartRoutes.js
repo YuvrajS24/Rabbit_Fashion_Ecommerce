@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Cart = require('../models/Cart.js')
 const Product = require('../models/Product')
 const {protect} =require('../middleware/authMiddleware.js')
+const crypto = require('crypto');
 
 
 const router = express.Router()
@@ -98,7 +99,7 @@ router.post("/", async (req,res)=> {
             const newCart = await Cart.create({
                  
                 user: userId? userId : undefined,
-                guestId : guestId? guestId : "guest_" + new Date().getTime(),
+                guestId: guestId ? guestId : "guest_" + crypto.randomUUID(),
 
                 products:[
 
