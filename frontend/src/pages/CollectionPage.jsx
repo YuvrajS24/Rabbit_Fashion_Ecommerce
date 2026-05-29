@@ -97,12 +97,12 @@ const CollectionPage = () => {
 
     <div className='flex-grow p-4 '>
 
-        <h2 className='text-2xl uppercase mb-4'>
-        {collection 
-            ? `${collection.toUpperCase()} COLLECTION` 
-            : 'ALL COLLECTION'
-        }
-    </h2>
+<h2 className='text-2xl uppercase mb-4'>
+    {collection && collection.toLowerCase() !== 'all' 
+        ? `${collection.toUpperCase()} COLLECTION` 
+        : 'ALL COLLECTION'
+    }
+</h2>
 
         {/* Sort Options */}
 
