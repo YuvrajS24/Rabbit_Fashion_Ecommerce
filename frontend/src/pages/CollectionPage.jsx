@@ -16,6 +16,8 @@ const CollectionPage = () => {
 
     const [searchParams] = useSearchParams();
 
+    const gender = searchParams.get("gender");
+
     const dispatch = useDispatch();
 
 
@@ -99,8 +101,10 @@ const CollectionPage = () => {
 
 <h2 className='text-2xl uppercase mb-4'>
     {collection && collection.toLowerCase() !== 'all' 
-        ? `${collection.toUpperCase()} COLLECTION` 
-        : 'ALL COLLECTION'
+        ? `${collection.toUpperCase()} COLLECTION`
+        : gender 
+            ? `${gender.toUpperCase()} COLLECTION`
+            : 'ALL COLLECTION'
     }
 </h2>
 
