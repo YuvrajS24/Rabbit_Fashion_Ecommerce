@@ -133,6 +133,12 @@ router.post("/:id/finalize", protect , async(req,res) => {
 
         }
 
+
+        if (checkout.user.toString() !== req.user._id.toString()) {
+             return res.status(401).json({ message: "Not authorized" });
+        }
+
+
         if(checkout.isPaid && !checkout.isFinalised){
              
             //Create final order based on checkout details
