@@ -87,11 +87,12 @@ reducers:{
 logout:(state)=>{
 
     state.user = null;
-    state.guestId = `guest_${new Date().getTime()}`; //Reset guest Id on logout
+   state.guestId = `guest_${crypto.randomUUID()}`;
+
 
     localStorage.removeItem("userInfo");
     localStorage.removeItem("userToken");
-    localStorage.setItem("guestId", state.guestId); //Set new guest Id in localStorage
+    localStorage.setItem("guestId", state.guestId); 
 
 
 },

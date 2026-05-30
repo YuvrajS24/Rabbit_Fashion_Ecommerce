@@ -3,8 +3,34 @@ import { TbBrandMeta } from "react-icons/tb";
 import { IoLogoInstagram } from "react-icons/io5";
 import { RiTwitterXLine } from "react-icons/ri";
 import { FiPhoneCall } from "react-icons/fi";
+import { useState } from "react";
+import axios from "axios";
+
+
 
 function Footer() {
+  
+  const [email, setEmail] = useState("");
+const [message, setMessage] = useState("");
+const [isError, setIsError] = useState(false);
+
+const handleSubscribe = async (e) => {
+    e.preventDefault();
+    try {
+        const res = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/api/subscribe`,
+            { email }
+        );
+        setMessage(res.data.message);
+        setIsError(false);
+        setEmail("");
+    } catch (error) {
+        setMessage(error.response?.data?.message || "Something went wrong");
+        setIsError(true);
+    }
+};
+
+
   return (
     <footer className="border-t bg-gray-50">
 
@@ -27,14 +53,13 @@ function Footer() {
               Sign up and get 10% off your first order.
             </p>
 
-         <form className="flex max-w-xs w-full">
-  <input
-    type="email"
-    placeholder="Enter your email"
-    required
-    className="w-0 flex-1 px-3 py-2.5 text-sm border border-gray-300 rounded-l-md
-               focus:outline-none focus:ring-2 focus:ring-black"
-  />
+         <form onSubmit={handleSubscribe} className="flex max-w-xs w-full">
+  
+  <input type="email" placeholder="Enter your email" required
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+   className="w-0 flex-1 px-3 py-2.5 text-sm border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-black" />
+
   <button
     type="submit"
     className="bg-black text-white px-4 py-2.5 text-sm rounded-r-md
@@ -43,6 +68,13 @@ function Footer() {
     Subscribe
   </button>
 </form>
+
+
+            {message && (
+              <p className={`text-sm mt-2 ${isError ? "text-red-500" : "text-green-600"}`}>
+                {message}
+              </p>
+            )}
 
           </div>
 
