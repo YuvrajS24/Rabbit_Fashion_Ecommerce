@@ -7,7 +7,8 @@ const userFromStorage = localStorage.getItem("userInfo") ? JSON.parse(localStora
 
 
 //Check for an existing guest ID in the local storage or generate a new one
-const initialGuestId = localStorage.getItem("guestId") || `guest_${new Date().getTime() }` 
+
+const initialGuestId = localStorage.getItem("guestId") || `guest_${crypto.randomUUID()}`
 
 
 localStorage.setItem("guestId", initialGuestId );
