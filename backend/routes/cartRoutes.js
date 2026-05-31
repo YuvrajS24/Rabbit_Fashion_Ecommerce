@@ -82,7 +82,8 @@ router.post("/", async (req,res)=> {
                 });
               }
 
-                 //Recalculate the total price 
+  
+               //Recalculate the total price 
 
         cart.totalPrice = cart.products.reduce((acc,item) => acc + item.price *item.quantity, 0);
 
@@ -91,7 +92,6 @@ router.post("/", async (req,res)=> {
 
         return res.status(200).json(cart);
 
-
         }else{
 
             //Create a new cart for the guest or the user
@@ -99,7 +99,7 @@ router.post("/", async (req,res)=> {
             const newCart = await Cart.create({
                  
                 user: userId? userId : undefined,
-                guestId: guestId ? guestId : "guest_" + crypto.randomUUID(),
+                guestId: userId ? undefined : guestId || "guest_" + crypto.randomUUID(),
 
                 products:[
 
