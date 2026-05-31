@@ -8,7 +8,9 @@ const CartContents = ({ cart, userId, guestId }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (productId, delta, quantity, size, color) => {
+
     const newQuantity = quantity + delta;
+
     if (newQuantity >= 1) {
       dispatch(
         updateCartItemQuantity({
@@ -32,7 +34,7 @@ const CartContents = ({ cart, userId, guestId }) => {
   return (
     <div>
       {cart.products.map((product) => (
-        <div key={`${product.productId}-${product.size}`} className='flex items-start justify-between py-4 border-b'>
+        <div key={`${product.productId}-${product.size}-${product.color}`} className='flex items-start justify-between py-4 border-b'>
           <div className='flex items-start'>
             <img
               src={product.image}
