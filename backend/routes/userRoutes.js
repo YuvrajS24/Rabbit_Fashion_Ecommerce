@@ -67,7 +67,7 @@ router.post("/register", async(req,res)=>{
 
     } catch(error){
 
-        console.log(error);
+        console.error(error);
         res.status(500).send("Server Error");
     }
 
@@ -138,7 +138,7 @@ router.post("/login", async(req,res)=>{
 
     }catch(error){
 
-        console.log(error);
+        console.error(error);
         res.status(500).send("Server Error");
     }
 

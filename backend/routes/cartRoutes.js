@@ -237,7 +237,7 @@ router.delete("/", async (req,res)=> {
 
      }catch(error){
 
-        console.log(error);
+        console.error(error);
 
         return res.status(500).json({message:"Server Error"});
 
@@ -319,10 +319,10 @@ router.post("/merge", protect, async (req, res) => {
           );
 
           if (productIndex > -1) {
-            // Item already exists → quantity add
+            // Item already exists -> quantity add
             userCart.products[productIndex].quantity += guestItem.quantity;
           } else {
-            // Naya item → push (spread use kiya reference issue avoid karne ke liye)
+            // Naya item -> push (used spread to avoid reference issue)
             userCart.products.push({ ...guestItem });
           }
         });
@@ -335,7 +335,7 @@ router.post("/merge", protect, async (req, res) => {
 
         await userCart.save();
 
-        // Guest cart delete (sahi syntax)
+        // Guest cart delete 
         await Cart.deleteOne({ _id: guestCart._id }).catch((err) => {
           console.error("Error deleting guest cart:", err);
         });

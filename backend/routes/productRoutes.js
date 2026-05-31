@@ -131,7 +131,7 @@ res.json(products);
         
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).send("server error");
 
@@ -218,7 +218,7 @@ router.get("/:id",async (req,res)=>{
         
     } catch (error) {
 
-        console.log(error);
+        console.error(error);
 
         res.status(500).send("Server Error");
 
