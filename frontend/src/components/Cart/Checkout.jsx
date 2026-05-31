@@ -4,6 +4,7 @@ import PayPalButton from './PayPalButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCheckout } from '../../redux/slices/checkoutSlice';
 import axios from "axios";
+import { toast } from 'sonner';
 
 
 
@@ -18,6 +19,8 @@ const dispatch = useDispatch();
 const {cart, loading , error} = useSelector((state)=> state.cart)
 
 const {user} = useSelector((state)=>state.auth)
+
+ const { error: checkoutError } = useSelector((state) => state.checkout)
 
 
 const [checkoutId, setCheckoutId] = useState(null);
@@ -71,7 +74,11 @@ if(res.payload && res.payload._id){
 
     setCheckoutId(res.payload._id); //Set checkout Id if checkout was successful
 
-}
+}  else if (res.payload?.message) {
+               
+      toast.error(res.payload.message) ;
+
+            }
 
 
 
@@ -273,7 +280,7 @@ required
         {/* Paypal Component */}
 
         <PayPalButton amount={cart.totalPrice} onSuccess={handlePaymentSuccess}
-            onError={(err)=> alert('Payment failed. Try again. ')}
+           onError={(err)=> toast.error('Payment failed. Try again.')}
         />
 
 
@@ -297,7 +304,7 @@ required
   
   {cart.products.map((product, index) => (
    
-  <div key={index} className='flex items-start justify-between py-2 border-b'>
+  <div key={`${product.productId}-${product.size}-${product.color}`} className='flex items-start justify-between py-2 border-b'>
 
   <div className='flex items-start'>
     <img src={product.image} alt={product.name} className='w-20 h-24 object-cover mr-4 '/>
