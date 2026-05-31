@@ -21,7 +21,7 @@ const OrderConfirmation = () => {
 
         dispatch(clearCart());
 
-        localStorage.removeItem("cart")
+    
 
       }else{
                navigate("/my-orders");
