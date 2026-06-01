@@ -97,8 +97,10 @@ export const updateCartItemQuantity = createAsyncThunk("cart/updateCartItemQuant
                 productId,
                 quantity,
                 guestId,
+                userId,
                 size,
                 color,
+
 
               }
             );
