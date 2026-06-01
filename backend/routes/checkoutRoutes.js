@@ -15,12 +15,12 @@ const router = express.Router();
 
 router.post("/", protect, async (req, res) => {
 
-  const { checkoutItems, shippingAddress, paymentMethod, totalPrice } = req.body;
+  const { checkoutItems, shippingAddress, paymentMethod } = req.body;
 
   
 
   //  Cart items check
-  if (!checkoutItems || checkoutItems.length === 0) {
+  if (!checkoutItems?.length) {
     return res.status(400).json({ message: "No items in checkout" });
   }
 
@@ -29,27 +29,46 @@ router.post("/", protect, async (req, res) => {
     return res.status(400).json({ message: "paymentMethod is required" });
   }
 
-  // Shipping address check
-  if (
-    !shippingAddress ||
-    !shippingAddress.address ||
-    !shippingAddress.city ||
-    !shippingAddress.postalCode ||
-    !shippingAddress.country
-  ) {
-    return res.status(400).json({
-      message: "Complete shipping address required",
-    });
-  }
+ 
 
   // ONLY AFTER ALL CHECKS
   try {
+     
+    const validatedItems = await Promise.all(
+          
+      checkoutItems.map(async (item) => {
+           
+      const product = await Product.findById(item.productId);
+      
+        if(!product){
+         
+          throw new Error(`Product not found : ${item.productId}`) ;
+
+      }
+
+      
+        
+      return {
+        productId:product._id,
+        name:product.name,
+        image:product.images[0]?.url,
+        price: product.price,
+        quantity: item.quantity,
+        size: item.size,
+        color: item.color,
+      };
+      })
+  );
+
+   const calculatedTotal = validatedItems.reduce((total, item) => total + item.price*item.quantity, 0);
+
+
     const newCheckout = await Checkout.create({
       user: req.user._id,
-      checkoutItems,
+      checkoutItems: validatedItems,
       shippingAddress,
       paymentMethod,
-      totalPrice,
+      totalPrice: calculatedTotal,
       paymentStatus: "Pending",
       isPaid: false,
     });
@@ -59,7 +78,7 @@ router.post("/", protect, async (req, res) => {
 
   } catch (error) {
     console.error("Checkout Error:", error);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: error.message || "Server Error" });
   }
 });
 

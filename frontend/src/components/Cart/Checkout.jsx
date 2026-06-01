@@ -63,7 +63,7 @@ if(cart && cart.products.length > 0){
         checkoutItems : cart.products,
         shippingAddress,
         paymentMethod: "Paypal",
-        totalPrice: cart.totalPrice,
+      
 
 
  })
