@@ -69,8 +69,12 @@ router.post("/", protect, async (req, res) => {
       shippingAddress,
       paymentMethod,
       totalPrice: calculatedTotal,
-      paymentStatus: "Pending",
+      paymentStatus: "pending",
       isPaid: false,
+      isFinalised: false,
+      expiresAt: new Date(Date.now() + 24*60*60*1000),
+
+
     });
 
     
@@ -110,6 +114,7 @@ router.put("/:id/pay", protect , async(req,res)=>{
             checkout.paymentStatus = paymentStatus;
             checkout.paymentDetails = paymentDetails;
             checkout.paidAt = Date.now();
+            checkout.expiresAt = null;
 
             await checkout.save();
 

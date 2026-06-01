@@ -115,6 +115,23 @@ const handlePaymentSuccess = async (details) => {
   }
 };
 
+const handlePaymentError = async (err) => {
+
+    console.error("PayPal Payment Error:", err);
+    toast.error("Payment failed. Please try again.");
+    setCheckoutId(null);
+};
+
+const handlePaymentCancel = () => {
+    
+    toast.info("Payment was cancelled.", {
+        duration: 3000,
+    });
+    
+    setCheckoutId(null);
+
+};
+
 
 
 const handleFinalizeCheckout = async (checkoutId) => {
@@ -134,6 +151,10 @@ const handleFinalizeCheckout = async (checkoutId) => {
     console.error(error);
   }
 };
+
+
+
+
 
 
 if(loading) return <p>Loading cart ...</p>
@@ -280,7 +301,8 @@ required
         {/* Paypal Component */}
 
         <PayPalButton amount={cart.totalPrice} onSuccess={handlePaymentSuccess}
-           onError={(err)=> toast.error('Payment failed. Try again.')}
+          onError={handlePaymentError}
+          onCancel={handlePaymentCancel}
         />
 
 

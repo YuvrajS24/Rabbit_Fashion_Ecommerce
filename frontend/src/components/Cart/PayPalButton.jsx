@@ -1,6 +1,6 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-const PayPalButton = ({amount, onSuccess, onError}) => {
+const PayPalButton = ({amount, onSuccess, onError, onCancel}) => {
 
 
   return (
@@ -24,7 +24,15 @@ const PayPalButton = ({amount, onSuccess, onError}) => {
 
       }}
 
-onError={onError}
+                onError={(err) => {
+                    console.error("PayPal Error:", err);
+                    if (onError) onError(err);
+                }}
+
+                onCancel={() => {
+                    console.log("Payment cancelled by user");
+                    if (onCancel) onCancel();
+                }}
 
    />
 

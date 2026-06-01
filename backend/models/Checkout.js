@@ -135,11 +135,18 @@ finalisedAt:{
 
 },
 
+expiresAt: {
 
-}, {timestamps:true}
+    type:Date,
+    default: () => new Date(Date.now() + 24*60*60*1000)
 
-)
+}
 
 
+}, {timestamps:true});
+
+
+
+checkoutSchema.index({expiresAt:1}, {expireAfterSeconds:0})
 
 module.exports = mongoose.model("Checkout", checkoutSchema)
