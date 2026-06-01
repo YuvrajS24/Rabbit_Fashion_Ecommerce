@@ -314,6 +314,7 @@ required
 
         <p className='text-gray-500'> Size: {product.size}</p>
         <p className='text-gray-500'> Color: {product.color}</p>
+        <p className='text-gray-500'> Qty: {product.quantity}</p>
         
       
 
