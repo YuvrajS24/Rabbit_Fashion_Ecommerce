@@ -120,6 +120,10 @@ const orderSchema = new mongoose.Schema({
 
     },
 
+    paymentDetails:{
+     type: mongoose.Schema.Types.Mixed,
+   },
+
     status:{
 
         type:String,
