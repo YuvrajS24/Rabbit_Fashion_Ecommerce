@@ -4,6 +4,7 @@ import { fetchProductDetails } from '../../redux/slices/productSlice';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { updateProduct } from '../../redux/slices/adminProductSlice';
+import { toast } from 'sonner';
 
 
 const EditProductPage = () => {
@@ -89,7 +90,9 @@ const handleImageUpload = async (e) => {
   {
     headers: { "Content-Type": "multipart/form-data" },
   }
-);
+); 
+
+    toast.success("Image uploaded successfully!");
 
     setProductData((prevData)=>({
         ...prevData,
@@ -102,6 +105,11 @@ const handleImageUpload = async (e) => {
    } catch (error) {
 
     console.error(error);
+
+    const errorMsg = error.response?.data?.message || "Failed to upload image";
+
+    toast.error(errorMsg);
+
     setUploading(false);
     
    }

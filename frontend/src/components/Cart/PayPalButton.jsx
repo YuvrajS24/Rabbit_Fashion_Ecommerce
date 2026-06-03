@@ -14,7 +14,7 @@ const PayPalButton = ({amount, onSuccess, onError, onCancel}) => {
              createOrder={(data , actions) => {
 
                 return actions.order.create({
-                    purchase_units:[{amount:{value:parseFloat(amount).toFixed(2)}},]
+                    purchase_units:[{amount:{value:parseFloat(amount).toFixed(2), currency_code: "USD"}},]
           })
         }}
 

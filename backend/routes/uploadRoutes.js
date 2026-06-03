@@ -2,6 +2,8 @@ const express = require('express')
 const multer = require('multer')
 const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
+const rateLimit = require('express-rate-limit');
+const protect = require('../middleware/authMiddleware')
 
 
 require("dotenv").config()
@@ -22,16 +24,37 @@ cloudinary.config({
 
 })
 
+const uploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 8,                  
+  message: 'Too many uploads, please try again later'
+});
+
+
 
 
 //Multer setup using memory storage
 
 const storage = multer.memoryStorage();
 
-const upload = multer({storage});
+const upload = multer({
+  storage,
+   limits: { fileSize: 10 * 1024 * 1024 },
+
+  fileFilter: (req, file, cb) => {
+
+    const allowedMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+    if (allowedMimes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type'), false);
+    }
+  }
+});
 
 
-router.post("/", upload.single("image"), async(req, res)=>{
+router.post("/", uploadLimiter, protect, upload.single("image"), async(req, res)=>{
 
 try{
 
