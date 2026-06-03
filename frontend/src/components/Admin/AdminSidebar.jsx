@@ -33,7 +33,11 @@ const AdminSidebar = () => {
         </div>
 
 
-        <h2 className='text-xl font-medium mb-6 text-center'>Admin Dashboard</h2>
+        <h2 className='text-xl font-medium mb-6 text-center'>
+        <NavLink className="cursor-pointer" to="/admin">
+            Admin Dashboard
+         </NavLink>
+        </h2>
 
 
         <nav className='flex flex-col space-y-2'>
