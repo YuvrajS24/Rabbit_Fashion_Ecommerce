@@ -3,7 +3,7 @@ import { FaBars } from 'react-icons/fa';
 import AdminSidebar from './AdminSidebar';
 import { Outlet } from 'react-router-dom';
 
-const aAdminLayout = () => {
+const AdminLayout = () => {
 
 
     const [isSidebarOpen , setIsSidebarOpen] = useState(false);
