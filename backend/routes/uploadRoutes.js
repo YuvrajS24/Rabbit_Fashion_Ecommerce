@@ -3,7 +3,7 @@ const multer = require('multer')
 const cloudinary = require('cloudinary').v2
 const streamifier = require('streamifier')
 const rateLimit = require('express-rate-limit');
-const protect = require('../middleware/authMiddleware')
+const { protect } = require('../middleware/authMiddleware')
 
 
 require("dotenv").config()
