@@ -34,7 +34,7 @@ const AdminSidebar = () => {
 
 
         <h2 className='text-xl font-medium mb-6 text-center'>
-        <NavLink className="cursor-pointer" to="/admin">
+        <NavLink to="/admin" className="cursor-pointer">
             Admin Dashboard
          </NavLink>
         </h2>

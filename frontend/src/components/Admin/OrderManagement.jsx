@@ -91,7 +91,10 @@ if(error) return <p>Error:{error}...</p>;
                
                <select value={order.status} 
                onChange={(e)=> handleStatusChange(order._id, e.target.value)}
-               className='bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5' >
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500 
+                       focus:border-indigo-500 block w-full p-2.5 cursor-pointer 
+                       transition-all duration-200">
 
                 <option value="Processing">Processing</option>
                 <option value="Shipped">Shipped</option>
