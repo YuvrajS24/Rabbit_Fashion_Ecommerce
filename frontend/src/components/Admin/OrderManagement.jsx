@@ -91,10 +91,8 @@ if(error) return <p>Error:{error}...</p>;
                
                <select value={order.status} 
                onChange={(e)=> handleStatusChange(order._id, e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                       focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                       focus:border-indigo-500 block w-full p-2.5 cursor-pointer 
-                       transition-all duration-200">
+               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 
+                   focus:border-blue-500 block w-full p-2.5">
 
                 <option value="Processing">Processing</option>
                 <option value="Shipped">Shipped</option>
@@ -108,7 +106,7 @@ if(error) return <p>Error:{error}...</p>;
                <td className="p-4 ">
 
                 <button onClick={()=>handleStatusChange(order._id,"Delivered")}
-                 className="bg-green-500 text-white px-4 py-2 mr-2 rounded bg:green-600">
+                 className="bg-green-500 text-white px-4 py-2 mr-2 rounded hover:bg-green-600">
 
                  Mark as Delivered
 
