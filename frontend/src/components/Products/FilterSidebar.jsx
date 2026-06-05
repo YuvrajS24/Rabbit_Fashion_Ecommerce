@@ -123,31 +123,27 @@ setPriceRange([0, params.maxPrice || 100]);
 
 
 const updateURLParams = (newFilters) => {
-
   const params = new URLSearchParams();
 
-  //{category:"Top Wear",size:["XS","S"]}
+  Object.keys(newFilters).forEach((key) => {
 
+    const val = newFilters[key];
 
-  Object.keys(newFilters).forEach((key)=>{
+    if (Array.isArray(val) && val.length > 0) {
 
-    if(Array.isArray(newFilters[key]) && newFilters[key].length > 0){
+       params.append(key, val.join(","));
 
-      params.append(key, newFilters[key].join(","));  
+    } else if (!Array.isArray(val) && val !== "" && val !== 0) {
+     
+      if (key === "maxPrice" && Number(val) === 100) return;
 
-
-    }else if (newFilters [key]) {
-
-       params.append(key, newFilters[key]);
-
-}
-
+      params.append(key, val);
+      
+    }
   });
 
   setSearchParams(params);
-
-
-}
+};
 
 
 const handlePriceChange = (e) =>{
