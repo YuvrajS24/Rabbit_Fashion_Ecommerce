@@ -75,7 +75,7 @@ export const updateUser = createAsyncThunk( "admin/updateUser",  async ({ id, ro
         }
       );
 
-      // Make sure backend returns updated user
+      
       return response.data.user; 
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);

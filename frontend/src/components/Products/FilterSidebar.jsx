@@ -146,7 +146,6 @@ const updateURLParams = (newFilters) => {
 
   setSearchParams(params);
 
-  navigate(`?${params.toString()}`)  
 
 }
 
