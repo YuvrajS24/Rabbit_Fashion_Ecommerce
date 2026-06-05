@@ -95,7 +95,7 @@ setPriceRange([0, params.maxPrice || 100]);
 
 
 const handleFilterChange = (e) => {
-
+  
   const { name, value, checked, type } = e.target;
   let newFilters = { ...filters };
 
@@ -214,7 +214,7 @@ const handlePriceChange = (e) =>{
 
         <label className='block  text-gray-600 font-medium mb-2'> Color </label>
 
-        <div className='grid grid-cols-5 gap-2 '>
+        <div className='flex flex-wrap gap-2 '>
 
           {colors.map((color)=>(
 
