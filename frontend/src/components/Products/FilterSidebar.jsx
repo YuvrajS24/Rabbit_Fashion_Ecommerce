@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 const FilterSidebar = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const navigate = useNavigate();
+    
 
 
     const[filters, setFilters] = useState({
@@ -94,32 +94,32 @@ setPriceRange([0, params.maxPrice || 100]);
  }, [searchParams]);
 
 
- const handleFilterChange = (e) => {
+const handleFilterChange = (e) => {
+  
+  const { name, value, checked, type } = e.target;
+  let newFilters = { ...filters };
 
-    const {name, value , checked, type} = e.target;
+  if (type === "checkbox") {
 
-    let newFilters = {...filters};
+    if (checked) {
 
+      newFilters[name] = [...(newFilters[name] || []), value];
 
-   if(type=== "checkbox"){
-       
-    if(checked){
-
-         newFilters[name] = [...(newFilters[name]  || []) , value ]
-    }else{
-     
-      newFilters[name] = newFilters[name].filter((item)=> item !== value);
-
+    } else {
+      newFilters[name] = newFilters[name].filter((item) => item !== value);
     }
-  }else{
+  } else if (type === "button") {
+
+    // toggle — deselect color
+     newFilters[name] = filters[name] === value ? "" : value;
+
+  } else {
     newFilters[name] = value;
   }
 
   setFilters(newFilters);
-
   updateURLParams(newFilters);
-  
-}
+};
 
 
 const updateURLParams = (newFilters) => {
@@ -138,7 +138,7 @@ const updateURLParams = (newFilters) => {
       if (key === "maxPrice" && Number(val) === 100) return;
 
       params.append(key, val);
-      
+
     }
   });
 
@@ -218,7 +218,7 @@ const handlePriceChange = (e) =>{
 
           {colors.map((color)=>(
 
-            <button key={color} name="color" value={color} onClick={handleFilterChange}
+            <button type="button" key={color} name="color" value={color} onClick={handleFilterChange}
             className={`w-8 h-8 rounded-full border border-gray-300 cursor-pointer transition hover:scale-105
              ${filters.color === color? "ring-2 ring-blue-500" : ""}`}
              style={{backgroundColor:color.toLowerCase()} }
