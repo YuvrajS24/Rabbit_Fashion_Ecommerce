@@ -62,7 +62,7 @@ const ProductDetails = ({productId}) => {
     if(!selectedSize || !selectedColor){
 
         toast.error('Please select a size and color before adding to cart.',{
-            duration:1000,
+            duration:3000,
         });
 
         return;
@@ -180,12 +180,6 @@ const ProductDetails = ({productId}) => {
                 <h1 className='text-2xl md:text-3xl font-semibold mb-2'>
                     {selectedProduct.name}
                 </h1>
-
-                <p className='text-lg text-gray-600 mb-1 line-through '>
-
-                    {selectedProduct.originalPrice && `${selectedProduct.originalPrice}` }
-
-                </p>
 
                 <p className='text-xl text-gray-500 mb-2'>
 

@@ -20,7 +20,7 @@ const Topbar = () => {
                     <IoLogoInstagram className="h-5 w-5"/>
                 </a>
                 <a href="#" className='hover:text-gray-300'>
-                    < RiTwitterXLine  className="h-4 w-4"/>
+                    <RiTwitterXLine  className="h-4 w-4"/>
                 </a>
             </div>
 

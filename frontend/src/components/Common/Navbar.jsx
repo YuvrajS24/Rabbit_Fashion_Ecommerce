@@ -70,28 +70,25 @@ const toggleCartDrawer = () =>{
 
      
 
-        <Link to="/profile" className='hover:text-black'>
+        <Link to="/profile" className='text-gray-700 hover:text-black'>
           
-          <HiOutlineUser className='h-6 w-6 text-gray-700'/>
+          <HiOutlineUser className='h-6 w-6'/>
 
         </Link>
 
-        <button onClick={toggleCartDrawer} className=' relative hover:text-black'>
+        <button onClick={toggleCartDrawer} className=' relative text-gray-700 hover:text-black'>
           
-          <HiOutlineShoppingBag className='h-6 w-6 text-gray-700'/>
+          <HiOutlineShoppingBag className='h-6 w-6 '/>
            
            {cartItemCount> 0 && (<span className='absolute -top-1 bg-rabbit-red text-white text-xs rounded-full px-2 py-0.5'>{cartItemCount}</span>)}
 
         </button>
 
        {/*  Search */ }
-
-       <div className="overflow-hidden">
-
-    
-     <SearchBar/>
-        
-      </div>
+     
+        <div>
+          <SearchBar/>
+        </div>
 
 
         <button onClick={toggleNavDrawer}  className='md:hidden'>

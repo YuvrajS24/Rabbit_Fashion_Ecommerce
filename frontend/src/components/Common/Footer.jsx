@@ -5,14 +5,14 @@ import { RiTwitterXLine } from "react-icons/ri";
 import { FiPhoneCall } from "react-icons/fi";
 import { useState } from "react";
 import axios from "axios";
+import { Toaster, toast } from "sonner";
 
 
 
 function Footer() {
   
   const [email, setEmail] = useState("");
-const [message, setMessage] = useState("");
-const [isError, setIsError] = useState(false);
+
 
 const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -21,18 +21,20 @@ const handleSubscribe = async (e) => {
             `${import.meta.env.VITE_BACKEND_URL}/api/subscribe`,
             { email }
         );
-        setMessage(res.data.message);
-        setIsError(false);
+        
+        toast.success(res.data.message);
         setEmail("");
     } catch (error) {
-        setMessage(error.response?.data?.message || "Something went wrong");
-        setIsError(true);
+        
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
 };
 
 
   return (
     <footer className="border-t bg-gray-50">
+
+       <Toaster position="bottom-right" />
 
       {/* MAIN FOOTER */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
@@ -70,11 +72,7 @@ const handleSubscribe = async (e) => {
 </form>
 
 
-            {message && (
-              <p className={`text-sm mt-2 ${isError ? "text-red-500" : "text-green-600"}`}>
-                {message}
-              </p>
-            )}
+          
 
           </div>
 

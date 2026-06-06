@@ -50,7 +50,7 @@ const handleSearch = (e) => {
 
     <div className='relative w-1/2'>
       <input type='text' placeholder='Search' value={searchTerm} 
-      className='bg-gray-100 px-4 py-2 pl-2 pr-12 rounded-lg focus:outline-none w-full placeholder:text-gray-700'
+      className='bg-gray-100 py-2 pl-2 pr-12 rounded-lg focus:outline-none w-full placeholder:text-gray-700'
       onChange={(e)=>{setSearchTerm(e.target.value)}}
       />
 

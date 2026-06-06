@@ -69,9 +69,8 @@ const CartContents = ({ cart, userId, guestId }) => {
             </div>
           </div>
 
-          <div className='text-right'>
-            <p>$ {Number(product.price).toLocaleString()}</p>
-            <button onClick={() => handleRemoveFromCart(product.productId, product.size, product.color)}>
+          <div >
+             <button onClick={() => handleRemoveFromCart(product.productId, product.size, product.color)}>
               <RiDeleteBin3Line className='h-6 w-6 mt-2 text-red-600' />
             </button>
           </div>
