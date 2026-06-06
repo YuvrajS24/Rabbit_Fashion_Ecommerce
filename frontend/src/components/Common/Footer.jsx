@@ -22,11 +22,16 @@ const handleSubscribe = async (e) => {
             { email }
         );
         
-        toast.success(res.data.message);
+        toast.success(res.data.message, {
+        position: "bottom-right"
+      });
+
         setEmail("");
     } catch (error) {
         
-      toast.error(error.response?.data?.message || "Something went wrong");
+     toast.error(error.response?.data?.message || "Something went wrong", {
+    position: "bottom-right"
+});
     }
 };
 
@@ -34,7 +39,7 @@ const handleSubscribe = async (e) => {
   return (
     <footer className="border-t bg-gray-50">
 
-       <Toaster position="bottom-right" />
+     
 
       {/* MAIN FOOTER */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
