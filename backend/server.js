@@ -2,6 +2,8 @@ const dotenv = require('dotenv');
 dotenv.config()
 const express = require('express');
 const cors = require('cors');
+const mongoSanitize = require('express-mongo-sanitize');
+
 
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes')
@@ -17,7 +19,7 @@ const adminOrderRoutes = require('./routes/adminOrderRoutes')
 
 
 const app = express();
-app.use(express.json());
+
 app.use(cors({
   origin: [
     "https://rabbitfashion.vercel.app",  
@@ -26,6 +28,9 @@ app.use(cors({
   credentials: true,
 }));
 
+app.use(express.json());
+
+app.use(mongoSanitize());
 
 
 
