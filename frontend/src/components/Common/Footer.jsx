@@ -5,7 +5,7 @@ import { RiTwitterXLine } from "react-icons/ri";
 import { FiPhoneCall } from "react-icons/fi";
 import { useState } from "react";
 import axios from "axios";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 
 
 

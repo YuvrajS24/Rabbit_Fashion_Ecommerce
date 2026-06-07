@@ -2,9 +2,23 @@ const express = require('express')
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const {protect} = require('../middleware/authMiddleware')
+const rateLimit = require('express-rate-limit');
 
 
 const router = express.Router();
+
+
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    message:{message:"Too many login attempts, please try again later"}
+});
+
+const registerLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 5,
+    message:{message:"Too many accounts created, please try again later"}
+});
 
 
 //@route POST  /api/users/register
@@ -12,7 +26,7 @@ const router = express.Router();
 //@access Public
 
 
-router.post("/register", async(req,res)=>{
+router.post("/register",registerLimiter, async(req,res)=>{
 
  
     const {name, email, password} = req.body;
@@ -68,7 +82,7 @@ router.post("/register", async(req,res)=>{
     } catch(error){
 
         console.error(error);
-        res.status(500).send("Server Error");
+        res.status(500).json({ message: "Server Error" }); 
     }
 
 });
@@ -79,7 +93,7 @@ router.post("/register", async(req,res)=>{
 // @access Public 
 
 
-router.post("/login", async(req,res)=>{
+router.post("/login", loginLimiter, async(req,res)=>{
  
 
     const {email,password} =req.body;
@@ -139,7 +153,7 @@ router.post("/login", async(req,res)=>{
     }catch(error){
 
         console.error(error);
-        res.status(500).send("Server Error");
+        res.status(500).json({ message: "Server Error" }); 
     }
 
 
