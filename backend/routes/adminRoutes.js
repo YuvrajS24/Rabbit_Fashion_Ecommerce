@@ -13,7 +13,7 @@ router.get('/',protect,admin, async (req,res)=>{
 try{
 
 const users = await User.find({})
-            .select("-password")
+            .select("_id name email role createdAt")
             .sort({ createdAt: -1 });
 
     res.json(users);
@@ -91,7 +91,9 @@ router.put("/:id", protect, admin, async(req,res)=>{
 
         const updatedUser = await user.save(); 
 
-        res.json({ message: "User updated successfully", user: updatedUser });
+        const { _id, name, email, role } = updatedUser;
+
+        res.json({ message: "User updated successfully",  user: { _id, name, email, role } });
         
     } catch (error) {
 
