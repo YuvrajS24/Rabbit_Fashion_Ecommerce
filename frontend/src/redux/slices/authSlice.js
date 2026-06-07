@@ -76,7 +76,7 @@ export const registerUser = createAsyncThunk( "auth/registerUser",  async (userD
 
 //Slice
 
-const authSlice = creaateSlice({
+const authSlice = createSlice({
 
 name:"auth",
 
