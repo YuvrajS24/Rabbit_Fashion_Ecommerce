@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 dotenv.config()
 const express = require('express');
 const cors = require('cors');
-const mongoSanitize = require('express-mongo-sanitize');
+
 
 
 const connectDB = require('./config/db');
@@ -30,7 +30,6 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use(mongoSanitize());
 
 
 
