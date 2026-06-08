@@ -120,8 +120,6 @@ const CollectionPage = () => {
 
 
     </div>
-
-
       
     </div>
   )
