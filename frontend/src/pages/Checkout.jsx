@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import PayPalButton from './PayPalButton';
+import PayPalButton from '../components/Cart/PayPalButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { createCheckout } from '../../redux/slices/checkoutSlice';
+import { createCheckout } from '../redux/slices/checkoutSlice';
 import axios from "axios";
 import { toast } from 'sonner';
 
