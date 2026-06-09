@@ -156,6 +156,8 @@ user: {
 productSchema.index({ price: 1 });
 productSchema.index({ rating: -1 });
 productSchema.index({ gender: 1, category: 1 });
+productSchema.index({ createdAt: -1 })
+
 
 
 module.exports = mongoose.model("Product", productSchema);
