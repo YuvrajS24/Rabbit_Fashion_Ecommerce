@@ -129,7 +129,7 @@ const ProductDetails = ({productId}) => {
 
                {selectedProduct.images.map((image,index)=>(
                  <img 
-                 key={index} 
+                 key={image.url} 
                  src={image.url} 
                  alt={image.altText || `Thumbnail ${index} `}
                  className={`w-20 h-20 object-cover rounded-lg 
@@ -159,7 +159,7 @@ const ProductDetails = ({productId}) => {
 
                            {selectedProduct.images.map((image,index)=>(
                  <img 
-                 key={index} 
+                 key={image.url} 
                  src={image.url} 
                  alt={image.altText || `Thumbnail ${index} `}
                  className={`w-20 h-20 object-cover rounded-lg 

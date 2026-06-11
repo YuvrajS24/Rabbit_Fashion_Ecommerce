@@ -1,11 +1,18 @@
 import React from 'react';
 import { RiDeleteBin3Line } from 'react-icons/ri';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'sonner'
 import { removeFromCart, updateCartItemQuantity } from '../../redux/slices/cartSlice';
 
 const CartContents = ({ cart, userId, guestId }) => {
-  
-  const dispatch = useDispatch();
+
+    const dispatch = useDispatch();
+    const { error } = useSelector((state) => state.cart)
+
+
+       useEffect(() => {
+    if (error) toast.error(error)
+  }, [error])
 
   const handleAddToCart = (productId, delta, quantity, size, color) => {
 
