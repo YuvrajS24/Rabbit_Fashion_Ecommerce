@@ -181,8 +181,6 @@ const cartSlice = createSlice({
     cart: loadCartFromStorage(),
     loading: false,
     error: null,
-    previousCart: null,
-    
   },
   reducers: {
     clearCart: (state) => {
@@ -232,64 +230,40 @@ const cartSlice = createSlice({
 })
 
 
-     .addCase(updateCartItemQuantity.pending, (state, action) => {
-    state.previousCart = JSON.parse(JSON.stringify(state.cart))
-
-    const { productId, quantity, size, color } = action.meta.arg
-
-    const product = state.cart.products.find(
-        p => p.productId === productId && 
-             p.size === size && 
-             p.color === color
-    )
-
-    if (product) {
-        const diff = quantity - product.quantity
-        product.quantity = quantity
-        state.cart.totalPrice += product.price * diff
-    }
+      .addCase(updateCartItemQuantity.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+     .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
+  state.loading = false;
+  state.cart = action.payload;   
+  state.error = null;
+  saveCartToStorage(action.payload);
 })
-.addCase(updateCartItemQuantity.fulfilled, (state, action) => {
-    state.cart = action.payload
-    state.previousCart = null
-    state.error = null
-    saveCartToStorage(action.payload)
-})
-.addCase(updateCartItemQuantity.rejected, (state, action) => {
-    state.cart = state.previousCart   // ← rollback
-    state.previousCart = null
-    state.error = action.payload?.message || "Failed to update item quantity"
-})
+      .addCase(updateCartItemQuantity.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.payload?.message || "Failed to update item quantity";
+      })
 
 
-     .addCase(removeFromCart.pending, (state, action) => {
-    state.previousCart = JSON.parse(JSON.stringify(state.cart))
 
-    const { productId, size, color } = action.meta.arg
+      .addCase(removeFromCart.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+    .addCase(removeFromCart.fulfilled, (state, action) => {
+  state.loading = false;
+  state.cart = action.payload;    
+  state.error = null;
+  saveCartToStorage(action.payload);
+})
+      .addCase(removeFromCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Failed to remove item";
+      })
 
-    const index = state.cart.products.findIndex(
-        p => p.productId === productId && 
-             p.size === size && 
-             p.color === color
-    )
 
-    if (index !== -1) {
-        const removed = state.cart.products[index]
-        state.cart.totalPrice -= removed.price * removed.quantity
-        state.cart.products.splice(index, 1)
-    }
-})
-.addCase(removeFromCart.fulfilled, (state, action) => {
-    state.cart = action.payload
-    state.previousCart = null
-    state.error = null
-    saveCartToStorage(action.payload)
-})
-.addCase(removeFromCart.rejected, (state, action) => {
-    state.cart = state.previousCart   // ← rollback
-    state.previousCart = null
-    state.error = action.payload?.message || "Failed to remove item"
-})
 
 
 
